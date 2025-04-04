@@ -1,6 +1,4 @@
-## Remote control functionality with raspberry pi.
-
-I like watching movies and youtube on my laptop, since I have an adblocker. The screen is kind of small though, so I ususally watch the stuff from my laptop on my TV via HDMI. The problem with this approach is that whenever I want to pause or search something, I have to get up off the couch (the HDMI cable is too short). This problem could arguably be solved by just getting a longer cable, but that would be too easy. So I thought: what if I could use a remote control, which could move the mouse, click, and type? That's what this project is.
+I like watching movies and youtube on my laptop, since I have an adblocker. The screen is kind of small though, so I usually watch the stuff from my laptop on my TV via HDMI. The problem with this approach is that whenever I want to pause or search something, I have to get up off the couch (the HDMI cable is too short). This problem could arguably be solved by just getting a longer cable, but that would be too easy. So I thought: what if I could use a remote control, which could move the mouse, click, and type? That's what this project is.
 
 This program provides a GUI which makes selecting services easy. Simply use the remote to choose the service you want, click, and it'll take you there. Once on the page (let's say you're on youtube), use the up/down/left/right arrows to navigate the videos, and the center button to click. If you click the search bar, you'll need to use the number keys, as described below.
 
