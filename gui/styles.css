@@ -1,0 +1,50 @@
+body {
+    font-family: "VT323", monospace;
+    background-image: url(./images/space-background.png);
+    color:rgb(75, 243, 226);
+	
+   /* background-color:darkslateblue;*/
+}
+
+a:hover {
+	background-color:rgb(200,85,200);
+}
+
+.boxes {
+    text-align:center;
+    background-color: rgba(71, 61, 139, 0.65);
+}
+
+.boxes li {
+	list-style-type: none;
+}
+
+.boxes a {
+	text-decoration: none;
+}
+
+#li1 {
+	padding: 20%;
+	background-color: red;
+}
+
+#li2 {
+	padding: 20%;
+	background-color: rgb(46, 208, 46);
+}
+
+#li3 {
+	padding: 20%;
+	background-color: rgb(204, 255, 0);
+}
+
+#li4 {
+	padding: 20%;
+	background-color: rgb(229, 61, 232);
+}
+
+.upper-boxes, .lower-boxes {
+	display: flex;
+	align-items: center;
+	margin: auto 0;
+}
