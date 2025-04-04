@@ -22,6 +22,7 @@ sudo apt install libx11-dev -y || exit 1
 sudo apt install xauth -y || exit 1
 sudo apt install xorg -y || exit 1
 sudo apt install openbox -y || exit 1
+sudo apt install lirc -y || exit 1
 
 if [ ! -d "Arduino-IRremote" ]; then
 	git clone git@github.com:Arduino-IRremote/Arduino-IRremote.git || exit 1
