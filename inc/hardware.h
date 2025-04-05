@@ -1,37 +1,27 @@
 #pragma once
 
-#include "../Arduino-IRremote/IRFeedbackLED.hpp"
-#include "../Arduino-IRremote/IRProtocol.h"
-#include "../Arduino-IRremote/IRProtocol.hpp"
-#include "../Arduino-IRremote/IRReceive.hpp"
-#include "../Arduino-IRremote/IRSend.hpp"
-#include "../Arduino-IRremote/IRVersion.h"
-#include "../Arduino-IRremote/IRremote.h"
-#include "../Arduino-IRremote/IRremote.hpp"
-#include "../Arduino-IRremote/IRremoteInt.h"
-#include "../Arduino-IRremote/LongUnion.h"
-#include "../Arduino-IRremote/TinyIR.h"
-#include "../Arduino-IRremote/TinyIRReceiver.hpp"
-#include "../Arduino-IRremote/TinyIRSender.hpp"
-#include "../Arduino-IRremote/ac_LG.h"
-#include "../Arduino-IRremote/ac_LG.hpp"
-#include "../Arduino-IRremote/digitalWriteFast.h"
-#include "../Arduino-IRremote/ir_BangOlufsen.hpp"
-#include "../Arduino-IRremote/ir_BoseWave.hpp"
-#include "../Arduino-IRremote/ir_Denon.hpp"
-#include "../Arduino-IRremote/ir_DistanceWidthProtocol.hpp"
-#include "../Arduino-IRremote/ir_FAST.hpp"
-#include "../Arduino-IRremote/ir_JVC.hpp"
-#include "../Arduino-IRremote/ir_Kaseikyo.hpp"
-#include "../Arduino-IRremote/ir_LG.hpp"
-#include "../Arduino-IRremote/ir_Lego.hpp"
-#include "../Arduino-IRremote/ir_MagiQuest.hpp"
-#include "../Arduino-IRremote/ir_NEC.hpp"
-#include "../Arduino-IRremote/ir_Others.hpp"
-#include "../Arduino-IRremote/ir_Pronto.hpp"
-#include "../Arduino-IRremote/ir_RC5_RC6.hpp"
-#include "../Arduino-IRremote/ir_Samsung.hpp"
-#include "../Arduino-IRremote/ir_Sony.hpp"
-
 #include <iostream>
 #include <string>
+#include <wiringPi.h>
+
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <stdio.h>
+extern "C" {
+	#include "../inc/libft/libft.h"
+}
+
+#define IR_OUTPUT_PIN 0
+
+typedef class Hardware
+{
+private:
+	Hardware(const Hardware& copy);
+	Hardware& operator=(const Hardware& rhs);
+public:
+	Hardware();
+	~Hardware();
+}	Hardware;
