@@ -8,8 +8,11 @@ int	main(void)
 	while (1)
 	{
 		int n = digitalRead(IR_OUTPUT_PIN);
-		write(fd, ft_itoa(n), ft_strlen(ft_itoa(n)));
-		write(fd, "\n", 1);
+		if (n != 0)
+		{
+			write(fd, ft_itoa(n), ft_strlen(ft_itoa(n)));
+			write(fd, "\n", 1);
+		}
 	}
 	return (0);
 }

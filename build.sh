@@ -21,8 +21,9 @@ else
 fi
 
 # If -bin option provided, make program executable from anywhere
+cwd=$(pwd)
 if [ "$1" = "-bin" ]; then
-	export PATH=$PATH:/proc/$$/cwd
+	export PATH=$PATH:$cwd
 fi
 
 make -j4 || exit 1

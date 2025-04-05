@@ -5,7 +5,7 @@ CC = c++
 CFLAGS = -Wall -Wextra -Werror
 
 DEBUG_FLAGS = -Wall -Wextra -Werror -g
-LDFLAGS = -lX11 -lwiringPi -L./inc/libft -lft
+LDFLAGS = -lX11 -lwiringPi -lstdc++ -L./inc/libft -lft
 NAME = raspiremote
 
 SRC = src/hardware.cpp \
