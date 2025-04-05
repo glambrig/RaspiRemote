@@ -1,10 +1,13 @@
 .PHONY: all re clean fclean debug
 
 CC = c++
+
 CFLAGS = -Wall -Wextra -Werror
+
 DEBUG_FLAGS = -Wall -Wextra -Werror -g
 LDFLAGS = -lX11 -lwiringPi -L./inc/libft -lft
 NAME = raspiremote
+
 SRC = src/hardware.cpp \
 		src/keypress.cpp \
 		src/gui.cpp \
