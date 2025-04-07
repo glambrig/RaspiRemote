@@ -7,17 +7,32 @@ sudo apt install xorg -y || exit 1
 sudo apt install openbox -y || exit 1
 sudo apt install lirc -y || exit 1
 
-if [ ! -d "inc/WiringPi" ]; then
+if [ "$1" = "-nopi" or "$2" = "-nopi" ]; then
+	if [ ! -d "inc/WiringPi" ] && [ "$(gpio -v)" = 127 ]; then
+		git clone git@github.com:WiringPi/WiringPi.git
+		cd WiringPi
+		./build debian
+		mv debian-template/wiringpi_3.14_amd64.deb .
+		sudo chmod 644 wiringpi_3.14_amd64.deb
+		sudo apt install ./wiringpi_3.14_amd64.deb
+		cd ..
+		mv WiringPi inc
+	else
+		echo "WiringPi already installed, skipping..."
+	fi
+else
+	if [ ! -d "inc/WiringPi" ] && [ "$(gpio -v)" = 127 ]; then
 	git clone git@github.com:WiringPi/WiringPi.git
 	cd WiringPi
 	./build debian
-	mv debian-template/wiringpi_3.14_amd64.deb .
-	sudo chmod 644 wiringpi_3.14_amd64.deb
-	sudo apt install ./wiringpi_3.14_amd64.deb
+	mv debian-template/wiringpi_3.14_arm64.deb .
+	sudo chmod 644 wiringpi_3.14_arm64.deb
+	sudo apt install ./wiringpi_3.14_arm64.deb
 	cd ..
 	mv WiringPi inc
-else
-	echo "WiringPi already installed, skipping..."
+	else
+		echo "WiringPi already installed, skipping..."
+	fi
 fi
 
 # If -bin option provided, make program executable from anywhere

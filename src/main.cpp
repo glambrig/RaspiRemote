@@ -4,9 +4,13 @@
 
 int	main(void)
 {
-	int fd = open("keycodes", O_CREAT | O_RDWR);
+	Hardware hw;
+	
+	int fd = open("keycodes.txt", O_CREAT | O_RDWR);
 	while (1)
 	{
+		sleep(1);
+		std::cout << "hi\n";
 		int n = digitalRead(IR_OUTPUT_PIN);
 		if (n != 0)
 		{

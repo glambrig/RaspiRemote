@@ -3,16 +3,13 @@
 #include <iostream>
 #include <string>
 #include <wiringPi.h>
-
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <stdio.h>
-extern "C" {
-	#include "../inc/libft/libft.h"
-}
+#include "../inc/libft/libft.h"
 
 #define IR_OUTPUT_PIN 0
 
