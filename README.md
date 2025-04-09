@@ -14,7 +14,7 @@ The second (and most annoying) is that the descriptions of the keys on the remot
 
 ### How to prepare the hardware
 
-You'll need three female-to-female dupont cables, or twice as many cables and a bread board. If you're confused about which pin is which, please refer to https://pinout.xyz/pinout/wiringpi .
+You'll need three female-to-female dupont cables, or twice as many male-to-female cables and a bread board. If you're confused about which pin is which, please refer to https://pinout.xyz/pinout/wiringpi .
 
 1. Connect the IR receiver's output to GPIO pin 17 of the Pi
 2. Connect the 3.3V and GND of the IR receiver to those same pins on the Pi
