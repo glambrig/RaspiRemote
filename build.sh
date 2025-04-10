@@ -5,7 +5,7 @@ sudo apt install libx11-dev -y || exit 1
 sudo apt install xauth -y || exit 1
 sudo apt install xorg -y || exit 1
 sudo apt install openbox -y || exit 1
-sudo apt install lirc -y || exit 1
+sudo apt install lirc liblircclient-dev -y || exit 1
 
 if [ "$1" = "-nopi" or "$2" = "-nopi" ]; then
 	if [ ! -d "inc/WiringPi" ] && [ "$(gpio -v)" = 127 ]; then
@@ -37,7 +37,7 @@ fi
 
 # If -bin option provided, make program executable from anywhere
 cwd=$(pwd)
-if [ "$1" = "-bin" ]; then
+if [ "$1" = "-bin" ] || [ "$2" = "-bin" ]; then
 	export PATH=$PATH:$cwd
 fi
 
