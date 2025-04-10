@@ -11,8 +11,12 @@ The first is that in order to type something, you'd have to use the 1-9 keys on 
 The second (and most annoying) is that the descriptions of the keys on the remote control don't match with what I've bound those keys to do. At least, this is the case for the one that I'm using (the one that comes with the arduino starter kit), maybe yours is nicer.
 
 ### How to prepare the hardware
-1. Plug the IR receiver directly into the raspberry pi using the I2C port
-2. Connect the raspberry pi to your TV via HDMI (optional, though you'll need a screen in any case)
+
+You'll need three female-to-female dupont cables, or twice as many male-to-female cables and a bread board. If you're confused about which pin is which, please refer to https://pinout.xyz/pinout/wiringpi .
+
+1. Connect the IR receiver's output to GPIO pin 17 of the Pi
+2. Connect the 3.3V and GND of the IR receiver to those same pins on the Pi
+3. Connect the raspberry pi to your TV via HDMI
 
 ### How to build the project:
 - Clone the project (`git clone ...`)
