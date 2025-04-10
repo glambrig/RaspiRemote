@@ -4,9 +4,7 @@ This program provides a GUI which makes selecting services easy. Simply use the 
 
 To make this work, you'll need:
 - A raspberry pi
-- IR remote + receiver (included in the Arduino UNO R3 starter kit)
-- TV (optional)
-- HDMI cable (optional)
+- IR remote + receiver (included in Elegoo's Arduino UNO R3 starter kit)
 
 Since a little remote control is pretty limited, I had to make some choices.
 The first is that in order to type something, you'd have to use the 1-9 keys on the remote just like on those old flip phones, where 1 would be A/B/C depending on how many times you press the key.
@@ -20,6 +18,11 @@ The second (and most annoying) is that the descriptions of the keys on the remot
 - Clone the project (`git clone ...`)
 - Run `build.sh` (if you want to be able to run this program from anywhere, use `./build.sh -bin`)
 - Launch the program with `./raspiremote`
+
+***IMPORTANT***:
+If you're using the Elegoo remote included in the arduino kit, run this (`sudo cp lircd.conf /etc/lirc/lircd.conf`) to copy the LIRC configuration file that I made. Otherwise, you'll have to use LIRC's `irrecord` tool to make a configuration file for your remote.
+If you want to use your own remote and raspiremote doesn't do anything when you press buttons, MAKE SURE that you REMOVE the 0xFFFFFF (or 0x000000) from your lircd.conf file as one of the answers on this page says (https://raspberrypi.stackexchange.com/questions/37579/lirc-no-output-from-irw).
+This had me stumped for days, so you're wlecome.
 
 ### How to change the websites the GUI redirects to
 This is a bit trickier than one might think. Since we're using the left/right/up/down keys to navigate, the correct distance for the cursor to jump depends on how far apart the videos (or things to be clicked) are on the website you visit, how many there are per row, and some other things. I've included a configuration file (`config.json`) which you may edit to reflect the appropriate distances for the website that you want to add.
