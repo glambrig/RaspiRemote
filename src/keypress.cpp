@@ -15,6 +15,10 @@ void	listenForKeyPress(struct lirc_config *&lirc_config)
 			{
 				throw (std::string("Infared::lircSetup()::lirc_code2char() FAILED..."));
 			}
+			if (receivedCodeStr == NULL)
+			{
+				break ;
+			}
 			decodeKeyPress(receivedCodeStr);
 		} while (receivedCodeStr != NULL);
 		
@@ -25,12 +29,6 @@ void	listenForKeyPress(struct lirc_config *&lirc_config)
 
 void	decodeKeyPress(char *receivedCodeStr)
 {
-	// std::string	keypress(receivedCodeStr);
-
-	std::cout << "str = \"" << receivedCodeStr << "\"\n";
-
-	if (receivedCodeStr == NULL)
-		return ;
 	if (ft_strncmp(receivedCodeStr, "KEY_0", 5) == 0)
 		std::cout << "KEY_0\n";
 	else if (ft_strncmp(receivedCodeStr, "KEY_1", 5) == 0)
