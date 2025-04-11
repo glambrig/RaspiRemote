@@ -18,18 +18,23 @@ You'll need three female-to-female dupont cables, or twice as many male-to-femal
 2. Connect the 3.3V and GND of the IR receiver to those same pins on the Pi
 3. Connect the raspberry pi to your TV via HDMI
 
+### Before building the project...
+If you're NOT using the Elegoo remote included in the arduino kit, you'll have to use LIRC's `irrecord` tool to make a configuration file for your remote, and you'll have to make a lircrc file from it (read the docs or ask chatgpt).
+If you want to use your own remote and raspiremote doesn't do anything when you press buttons, MAKE SURE that you REMOVE the 0xFFFFFF (or 0x000000) from your lircd.conf file as one of the answers on this page says (https://raspberrypi.stackexchange.com/questions/37579/lirc-no-output-from-irw).
+This had me stumped for days, so you're welcome.
+
 ### How to build the project:
 - Clone the project (`git clone ...`)
-- Run `build.sh` (if you want to be able to run this program from anywhere, use `./build.sh -bin`)
+- Run `build.sh`
+- Run the build script with the appropriate options:
+
+`-nocopy`: if you're not using an Elegoo remote, this options ensures that my configuration files won't be copies to /etc/lirc. This means that you have to do all the work as mentioned above.
+
+`-bin`: adds raspiremote directory to $PATH, so you can run this program from anywhere
+
+`-nopi`: if you're not running `raspiremote` on a raspberry pi (if you don't include this option, wiringpi won't work)
+
 - Launch the program with `./raspiremote`
 
-***IMPORTANT***:
-If you're using the Elegoo remote included in the arduino kit, run this (`sudo cp lircd.conf /etc/lirc/lircd.conf`) to copy the LIRC configuration file that I made. Otherwise, you'll have to use LIRC's `irrecord` tool to make a configuration file for your remote.
-If you want to use your own remote and raspiremote doesn't do anything when you press buttons, MAKE SURE that you REMOVE the 0xFFFFFF (or 0x000000) from your lircd.conf file as one of the answers on this page says (https://raspberrypi.stackexchange.com/questions/37579/lirc-no-output-from-irw).
-This had me stumped for days, so you're wlecome.
-
 ### How to change the websites the GUI redirects to
-This is a bit trickier than one might think. Since we're using the left/right/up/down keys to navigate, the correct distance for the cursor to jump depends on how far apart the videos (or things to be clicked) are on the website you visit, how many there are per row, and some other things. I've included a configuration file (`config.json`) which you may edit to reflect the appropriate distances for the website that you want to add.
-
-For example:
-Let's say that you want to visit example.com, which has a homepage with 6 videos per row, ....
+To do
