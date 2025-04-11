@@ -2,13 +2,14 @@
 
 CC = c++
 
-CFLAGS = -Wall -Wextra -Werror
+#remove -g before final push
+CFLAGS = -Wall -Wextra -Werror -g 
 
 DEBUG_FLAGS = -Wall -Wextra -Werror -g
 LDFLAGS = -lX11 -lwiringPi -lstdc++ -L./inc/libft -lft -llirc_client
 NAME = raspiremote
 
-SRC = src/hardware.cpp \
+SRC = src/infared.cpp \
 		src/keypress.cpp \
 		src/gui.cpp \
 		src/main.cpp

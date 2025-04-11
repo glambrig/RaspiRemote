@@ -33,15 +33,17 @@
 // 	 BTN_DPAD_UP = 0x00FF906F;
 // 	 BTN_MOUSE = 0x00FF02FD;
 
-typedef class Hardware
+typedef class Infared
 {
 private:
 	struct lirc_config	*lirc_config = NULL;
 
-	Hardware(const Hardware& copy);
-	Hardware& 	operator=(const Hardware& rhs);
+	Infared(const Infared& copy);
+	Infared& 	operator=(const Infared& rhs);
 	void		lircSetup();
 public:
-	Hardware();
-	~Hardware();
-}	Hardware;
+	Infared();
+	~Infared();
+
+	struct lirc_config	*&getLircConfig();
+}	Infared;
