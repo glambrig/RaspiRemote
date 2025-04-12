@@ -1,6 +1,6 @@
-I like watching movies and youtube on my laptop, since I have an adblocker. The screen is kind of small though, so I usually watch the stuff from my laptop on my TV via HDMI. The problem with this approach is that whenever I want to pause or search something, I have to get up off the couch (the HDMI cable is too short). This problem could arguably be solved by just getting a longer cable, but that would be too easy. So I thought: what if I could use a remote control, which could move the mouse, click, and type? That's what this project is.
+I like watching movies and youtube on my laptop, since I have an adblocker. The screen is kind of small though, so I usually watch the stuff from my laptop on my TV via HDMI. The problem with this approach is that whenever I want to pause or search something, I have to get up off the couch (the HDMI cable is too short). This problem could arguably be solved by just getting a longer cable, but that would be too easy. So I came up with a solution: what if I could use a remote control, which could move the mouse, click, and type? That's what I've attempted to do in this project.
 
-This program provides a GUI which makes selecting services easy. Simply use the remote to choose the service you want, click, and it'll take you there. Once on the page (let's say you're on youtube), use the up/down/left/right arrows to navigate the videos, and the center button to click. If you click the search bar, you'll need to use the number keys, as described below.
+This program provides a GUI which makes selecting services easy. Simply use the remote to choose the service you want, click, and it'll take you there. Once on the page, use the up/down/left/right arrows to navigate the videos, and the center button to click. If you click the search bar, you'll need to use the number keys, as described below.
 
 To make this work, you'll need:
 - A raspberry pi
@@ -19,16 +19,15 @@ You'll need three female-to-female dupont cables, or twice as many male-to-femal
 3. Connect the raspberry pi to your TV via HDMI
 
 ### Before building the project...
-If you're NOT using the Elegoo remote included in the arduino kit, you'll have to use LIRC's `irrecord` tool to make a configuration file for your remote, and you'll have to make a lircrc file from it (read the docs or ask chatgpt).
-If you want to use your own remote and raspiremote doesn't do anything when you press buttons, MAKE SURE that you REMOVE the 0xFFFFFF (or 0x000000) from your lircd.conf file as one of the answers on this page says (https://raspberrypi.stackexchange.com/questions/37579/lirc-no-output-from-irw).
+If you're NOT using the Elegoo remote included in the arduino kit, you'll have to use LIRC's `irrecord` tool to make a configuration file for your remote, and you'll have to make a lircrc file from it (read the docs or ask chatgpt to do it).
+If you want to use your own remote and this program doesn't do anything when you press buttons, MAKE SURE that you REMOVE the 0xFFFFFF (or 0x000000) from your lircd.conf file as one of the answers on this page says (https://raspberrypi.stackexchange.com/questions/37579/lirc-no-output-from-irw).
 This had me stumped for days, so you're welcome.
 
 ### How to build the project:
 - Clone the project (`git clone ...`)
-- Run `build.sh`
-- Run the build script with the appropriate options:
+- Run `./build.sh` with any appropriate options, if applicable:
 
-`-nocopy`: if you're not using an Elegoo remote, this options ensures that my configuration files won't be copies to /etc/lirc. This means that you have to do all the work as mentioned above.
+`-nocopy`: if you're not using an Elegoo remote, this option ensures that my configuration files won't be copied to /etc/lirc. This means that you have to do all the work mentioned above.
 
 `-bin`: adds raspiremote directory to $PATH, so you can run this program from anywhere
 
