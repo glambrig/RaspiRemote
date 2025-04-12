@@ -9,27 +9,34 @@ void	sighandler(int unused)
 {
 	(void)unused;
 	ir_ptr->~Infared();
-	std::cout << "Signal caught, raspiremote exited successfully" << std::endl;
+	std::cout << " Signal caught, raspiremote exited successfully" << std::endl;
 	exit(EXIT_SUCCESS);
 }
 
-void	setupSigHandling(Infared& ir)
+void	setupSigHandling()
 {
 	struct sigaction	sa;
 
-	ir_ptr = &ir;
 	sa.sa_handler = &sighandler;
 	sigaction(SIGINT, &sa, NULL);
+}
+
+void	cleanExit(int status)
+{
+	ir_ptr->~Infared();
+	exit(status);
 }
 
 int	main(void)
 {
 	Infared ir;
 
-	setupSigHandling(ir);
+	ir_ptr = &ir;
+	setupSigHandling();
 	try
 	{
-		listenForKeyPress(ir.getLircConfig());
+		setupUinputDevice();
+		listenForKeyPress(&(ir.getLircConfig()));
 	}
 	catch (std::string& e)
 	{

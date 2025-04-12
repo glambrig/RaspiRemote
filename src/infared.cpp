@@ -1,4 +1,5 @@
 #include "../inc/infared.h"
+#include "../inc/main.h"
 
 Infared::Infared()
 {
@@ -11,6 +12,7 @@ Infared::~Infared()
 {
 	lirc_freeconfig(lirc_config);
 	lirc_deinit();
+	cleanupUinputDevice();
 }
 
 Infared::Infared(const Infared& copy)
@@ -34,11 +36,11 @@ void	Infared::lircSetup()
 	if (lirc_init("raspiremote", LIRC_DEBUG_LEVEL) == -1)
 	{
 		perror("lirc_init");
-		exit(EXIT_FAILURE);
+		cleanExit(EXIT_FAILURE);
 	}
 	if (lirc_readconfig("/etc/lirc/lircrc", &lirc_config, NULL) == -1)
 	{
 		perror("lirc_readconfig");
-		exit(EXIT_FAILURE);
+		cleanExit(EXIT_FAILURE);
 	}
 }

@@ -20,13 +20,6 @@ if [ "$1" = "-nopi" ] || [ "$2" = "-nopi" ] || [ "$3" = "-nopi" ]; then
 	else
 		echo "WiringPi already installed, skipping..."
 	fi
-
-	if [ "$1" = "-copy" ] || [ "$2" = "-copy" ] || [ "$3" = "-copy" ]; then
-		sudo cp lircd.conf /etc/lirc/lircd.conf
-		sudo cp lircrc /etc/lirc/lircrc
-		sudo cp lirc_options.conf /etc/lirc/lirc_options.conf
-	fi
-
 else
 	if [ ! -d "inc/WiringPi" ] && [ "$(gpio -v)" = 127 ]; then
 	git clone git@github.com:WiringPi/WiringPi.git
@@ -41,13 +34,17 @@ else
 		echo "WiringPi already installed, skipping..."
 	fi
 
-	if [ "$1" != "-nocopy" ] && [ "$2" != "-nocopy" ] && [ "$3" != "-nocopy" ]; then
-		sudo cp lircd.conf /etc/lirc/lircd.conf
-		sudo cp lircrc /etc/lirc/lircrc
-		sudo cp lirc_options.conf /etc/lirc/lirc_options.conf
-		rm lircd.conf lircrc lirc_options.conf
-	fi
 fi
+
+if [ "$1" != "-nocopy" ] && [ "$2" != "-nocopy" ] && [ "$3" != "-nocopy" ]; then
+	sudo cp lircd.conf /etc/lirc/lircd.conf
+	sudo cp lircrc /etc/lirc/lircrc
+	sudo cp lirc_options.conf /etc/lirc/lirc_options.conf
+	rm lircd.conf lircrc lirc_options.conf
+fi
+
+sudo modprobe uinput
+sudo chmod 777 /dev/uinput
 
 # If -bin option provided, make program executable from anywhere
 # cwd=$(pwd)
