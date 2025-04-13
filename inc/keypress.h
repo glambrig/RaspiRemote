@@ -26,7 +26,6 @@ public:
 	void	listenForKeyPress(struct lirc_config **lirc_config);
 	void	decodeKeyPress(char *receivedCodeStr);
 	void	sendEventWrapper(unsigned int code, int value, int eventType);
-	void	cleanupUinputDevice();
 
 	void	setGuiPtr(gui *gui)
 	{

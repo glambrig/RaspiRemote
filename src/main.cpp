@@ -21,7 +21,7 @@ void	setupSigHandling()
 	sigaction(SIGINT, &sa, NULL);
 }
 
-void	cleanExit(char *exitMessage, int status)
+void	cleanExit(const char *exitMessage, int status)
 {
 	if (status == EXIT_FAILURE)
 		perror(exitMessage);

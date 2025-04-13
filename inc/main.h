@@ -1,4 +1,4 @@
 #pragma once
 
-void	cleanExit(char *exitMessage, int status)
+void	cleanExit(const char *exitMessage, int status);
 void	cleanupUinputDevice();

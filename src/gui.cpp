@@ -1,4 +1,39 @@
 #include "../inc/gui.h"
+#include <iostream>
+
+static void openBrowser()
+{
+	int			pid;
+	const char	*argv[] = {"/usr/bin/chromium-browser", "--start-maximized", "--app=localhost:8080", NULL};
+
+	pid = fork();
+	if (pid <= 0)
+	{
+		if (pid < 0)
+		{
+			cleanExit("fork", EXIT_FAILURE);
+		}
+		execve("/usr/bin/chromium-browser", (char * const *)argv, __environ);
+	}
+	else
+	{
+		if (wait(NULL) < 0)
+		{
+			cleanExit("wait", EXIT_FAILURE);
+		}
+	}
+	std::cout << "browser opening..." << std::endl;
+}
+
+static void loadGuiHtmlPage()
+{
+
+}
+
+static void defineMouseOffsets()
+{
+
+}
 
 gui::gui()
 {
@@ -27,37 +62,4 @@ void gui::setupGui()
 	openBrowser();
 	loadGuiHtmlPage();
 	defineMouseOffsets();
-}
-
-static void openBrowser()
-{
-	int		pid;
-	char	*argv[] = {"/usr/bin/chromium-browser", NULL};
-
-	pid = fork();
-	if (pid <= 0)
-	{
-		if (pid < 0)
-		{
-			cleanExit("fork", EXIT_FAILURE);
-		}
-		execve("/usr/bin/chromium-browser", argv, __environ);
-	}
-	else
-	{
-		if (wait(NULL) < 0)
-		{
-			cleanExit("wait", EXIT_FAILURE);
-		}
-	}
-}
-
-static void loadGuiHtmlPage()
-{
-
-}
-
-static void defineMouseOffsets()
-{
-
 }

@@ -25,8 +25,6 @@ static void	checkIoctlErrors()
 	{
 		if (errs[i] < 0)
 		{
-			perror("checkIoctlErrors::ioctl");
-			std::cerr << '\n' << i << '\n' ;
 			cleanExit("checkIoctlErrors::ioctl", EXIT_FAILURE);
 		}
 	}
@@ -45,7 +43,6 @@ static void sendEvent(int fd, unsigned int keycode, int keyvalue, int eventType)
     event.value = keyvalue;
     if (write(fd, &event, sizeof(event)) < 0)
 	{
-		perror("write event");
 		cleanExit("write event", EXIT_FAILURE);
     }
 
@@ -55,7 +52,6 @@ static void sendEvent(int fd, unsigned int keycode, int keyvalue, int eventType)
     write(fd, &event, sizeof(event));
     if (write(fd, &event, sizeof(event)) < 0)
 	{
-		perror("write event");
 		cleanExit("write event", EXIT_FAILURE);
     }
 }
@@ -70,12 +66,10 @@ void Keypress::setupUinputDevice()
 	uinp_fd = open("/dev/uinput", O_WRONLY | O_NONBLOCK);
 	if (uinp_fd < 0)
 	{
-		perror("open /dev/uinput");
 		cleanExit("open /dev/uinput", EXIT_FAILURE);
 	}
 	if (ioctl(uinp_fd, UI_SET_EVBIT, EV_KEY) < 0 || ioctl(uinp_fd, UI_SET_EVBIT, EV_REL) < 0)
 	{
-		perror("setupUinputDevice::ioctl");
 		cleanExit("setupUinputDevice::ioctl", EXIT_FAILURE);
 	}
 
@@ -91,7 +85,6 @@ void Keypress::setupUinputDevice()
 	write(uinp_fd, &uinp, sizeof(uinp));
     if (ioctl(uinp_fd, UI_DEV_CREATE) < 0)
 	{
-		perror("ioctl UI_DEV_CREATE");
 		cleanExit("ioctl UI_DEV_CREATE", EXIT_FAILURE);
     }
 }
@@ -179,7 +172,7 @@ void Keypress::sendEventWrapper(unsigned int code, int value, int eventType)
 	sendEvent(uinp_fd, code, value, eventType);
 }
 
-void Keypress::cleanupUinputDevice()
+void cleanupUinputDevice()
 {
 	if (uinp_fd > 0)
 	{
