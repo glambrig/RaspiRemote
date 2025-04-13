@@ -35,12 +35,10 @@ void	Infared::lircSetup()
 {	
 	if (lirc_init("raspiremote", LIRC_DEBUG_LEVEL) == -1)
 	{
-		perror("lirc_init");
-		cleanExit(EXIT_FAILURE);
+		cleanExit("lirc_init", EXIT_FAILURE);
 	}
 	if (lirc_readconfig("/etc/lirc/lircrc", &lirc_config, NULL) == -1)
 	{
-		perror("lirc_readconfig");
-		cleanExit(EXIT_FAILURE);
+		cleanExit("lirc_readconfig", EXIT_FAILURE);
 	}
 }

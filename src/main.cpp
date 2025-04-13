@@ -21,8 +21,10 @@ void	setupSigHandling()
 	sigaction(SIGINT, &sa, NULL);
 }
 
-void	cleanExit(int status)
+void	cleanExit(char *exitMessage, int status)
 {
+	if (status == EXIT_FAILURE)
+		perror(exitMessage);
 	ir_ptr->~Infared();
 	exit(status);
 }
