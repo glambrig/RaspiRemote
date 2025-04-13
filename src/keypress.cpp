@@ -63,7 +63,7 @@ static void sendEvent(int fd, unsigned int keycode, int keyvalue, int eventType)
 /*
 *	/dev/uinput is correct on raspiOS, but must be switched to /dev/input/uinput on other systems
 */
-void setupUinputDevice()
+void Keypress::setupUinputDevice()
 {
 	struct uinput_user_dev uinp;
 
@@ -96,7 +96,7 @@ void setupUinputDevice()
     }
 }
 
-void	listenForKeyPress(struct lirc_config **lirc_config)
+void	Keypress::listenForKeyPress(struct lirc_config **lirc_config)
 {
 	char	*code = NULL;
 	char	*receivedCodeStr = NULL;
@@ -123,7 +123,7 @@ void	listenForKeyPress(struct lirc_config **lirc_config)
 	}
 }
 
-void	decodeKeyPress(char *receivedCodeStr)
+void	Keypress::decodeKeyPress(char *receivedCodeStr)
 {
 	if (ft_strncmp(receivedCodeStr, "KEY_0", 5) == 0)
 		std::cout << "KEY_0\n";
@@ -174,12 +174,12 @@ void	decodeKeyPress(char *receivedCodeStr)
 		std::cerr << "BAD KEY\n";
 }
 
-void sendEventWrapper(unsigned int code, int value, int eventType)
+void Keypress::sendEventWrapper(unsigned int code, int value, int eventType)
 {
 	sendEvent(uinp_fd, code, value, eventType);
 }
 
-void cleanupUinputDevice()
+void Keypress::cleanupUinputDevice()
 {
 	if (uinp_fd > 0)
 	{

@@ -1,10 +1,6 @@
 #!/bin/sh
 
 sudo apt update -y
-sudo apt install libx11-dev -y || exit 1
-sudo apt install xauth -y || exit 1
-sudo apt install xorg -y || exit 1
-sudo apt install openbox -y || exit 1
 sudo apt install lirc liblircclient-dev -y || exit 1
 
 if [ "$1" = "-nopi" ] || [ "$2" = "-nopi" ] || [ "$3" = "-nopi" ]; then

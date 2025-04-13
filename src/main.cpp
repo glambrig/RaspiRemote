@@ -29,14 +29,18 @@ void	cleanExit(int status)
 
 int	main(void)
 {
-	Infared ir;
+	Infared		ir;
+	Keypress	kp;
+	gui			gui;
 
 	ir_ptr = &ir;
+	kp.setGuiPtr(&gui);
 	setupSigHandling();
 	try
 	{
-		setupUinputDevice();
-		listenForKeyPress(&(ir.getLircConfig()));
+		gui.setupGui();
+		kp.setupUinputDevice();
+		kp.listenForKeyPress(&(ir.getLircConfig()));
 	}
 	catch (std::string& e)
 	{

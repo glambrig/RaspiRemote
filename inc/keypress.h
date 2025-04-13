@@ -15,8 +15,21 @@
 #define MOUSE_EVENT 0
 #define KEY_EVENT 1
 
-void	setupUinputDevice();
-void	listenForKeyPress(struct lirc_config **lirc_config);
-void	decodeKeyPress(char *receivedCodeStr);
-void	sendEventWrapper(unsigned int code, int value, int eventType);
-void	cleanupUinputDevice();
+class gui;
+
+typedef class Keypress
+{
+private:
+		gui	*guiPtr;
+public:
+	void	setupUinputDevice();
+	void	listenForKeyPress(struct lirc_config **lirc_config);
+	void	decodeKeyPress(char *receivedCodeStr);
+	void	sendEventWrapper(unsigned int code, int value, int eventType);
+	void	cleanupUinputDevice();
+
+	void	setGuiPtr(gui *gui)
+	{
+		guiPtr = gui;
+	}
+}	Keypress;
