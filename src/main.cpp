@@ -36,7 +36,7 @@ int	main(void)
 	gui			gui;
 
 	ir_ptr = &ir;
-	kp.setGuiPtr(&gui);
+	gui.setKeypressPtr(&kp);
 	setupSigHandling();
 	try
 	{

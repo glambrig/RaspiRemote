@@ -8,6 +8,8 @@
 #include "main.h"
 
 #define EXIT_FAILURE 1
+#define SCREEN_SIZE_X 1920
+#define SCREEN_SIZE_Y 1080
 
 enum currentGuiLayer
 {
@@ -17,17 +19,27 @@ enum currentGuiLayer
 	SETTINGS
 };
 
+struct	Keypress;
+
 class gui
 {
 private:
-	enum currentGuiLayer currentGuiLayer;
+	struct Keypress			*keypress;
+	enum currentGuiLayer	currentGuiLayer;
 	
+	void defineMouseOffsets();
+	void loadGuiHtmlPage();
+	void openBrowser();
 	gui& operator=(const gui& rhs);
 	gui(const gui& copy);
 public:
 	gui();
 	~gui();
 
-	void setupGui();
+	void	setupGui();
+	void	setKeypressPtr(class Keypress *kp)
+	{
+		keypress = kp;
+	}
 };
 
