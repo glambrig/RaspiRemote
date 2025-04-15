@@ -6,7 +6,7 @@ CC = c++
 CFLAGS = -Wall -Wextra -Werror -g 
 
 DEBUG_FLAGS = -Wall -Wextra -Werror -g
-LDFLAGS = -lX11 -lwiringPi -lstdc++ -L./inc/libft -lft -llirc_client
+LDFLAGS = -lwiringPi -lstdc++ -L./inc/libft -lft -llirc_client
 NAME = raspiremote
 
 SRC = src/infared.cpp \
@@ -18,13 +18,13 @@ OBJ = $(SRC:.cpp=.o)
 all: libft $(NAME)
 
 libft:
-	make -C ./inc/libft
+	make -C ./inc/libft -O
 
 $(NAME): $(OBJ)
-	$(CC) -o $(NAME) $(OBJ) $(LDFLAGS)
+	$(CC) -O -o $(NAME) $(OBJ) $(LDFLAGS)
 
 %.o: %.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@ -O
 
 debug: CFLAGS = $(DEBUG_FLAGS)
 debug: re

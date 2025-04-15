@@ -5,7 +5,7 @@ int uinp_fd = -1;
 
 static void	checkIoctlErrors()
 {
-	int8_t errs[15];
+	int8_t errs[NB_BUTTONS];
 
 	errs[0] = ioctl(uinp_fd, UI_SET_KEYBIT, KEY_0);
 	errs[1] = ioctl(uinp_fd, UI_SET_KEYBIT, KEY_1);
@@ -18,13 +18,14 @@ static void	checkIoctlErrors()
 	errs[8] = ioctl(uinp_fd, UI_SET_KEYBIT, KEY_8);
 	errs[9] = ioctl(uinp_fd, UI_SET_KEYBIT, KEY_9);
     errs[10] = ioctl(uinp_fd, UI_SET_RELBIT, REL_X);
-    errs[12] = ioctl(uinp_fd, UI_SET_RELBIT, REL_Y);
-	errs[14] = ioctl(uinp_fd, UI_SET_KEYBIT, BTN_LEFT);
-	// errs[15] = 0;
-	for (int i = 0; i < 15; i++)
+    errs[11] = ioctl(uinp_fd, UI_SET_RELBIT, REL_Y);
+	errs[12] = ioctl(uinp_fd, UI_SET_KEYBIT, BTN_LEFT);
+	errs[13] = 0;
+	for (int i = 0; i < NB_BUTTONS - 1; i++)
 	{
 		if (errs[i] < 0)
 		{
+			std::cout << i << '\n';
 			cleanExit("checkIoctlErrors::ioctl", EXIT_FAILURE);
 		}
 	}
@@ -102,7 +103,8 @@ void	Keypress::listenForKeyPress(struct lirc_config **lirc_config)
 		{
 			if (lirc_code2char(*lirc_config, code, &receivedCodeStr) < 0)
 			{
-				throw (std::string("Infared::lircSetup()::lirc_code2char() FAILED..."));
+				free(code);
+				cleanExit("lirc_code2char", EXIT_FAILURE);
 			}
 			if (receivedCodeStr == NULL)
 			{

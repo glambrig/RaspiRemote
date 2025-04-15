@@ -14,13 +14,22 @@
 
 #define MOUSE_EVENT 0
 #define KEY_EVENT 1
+#define NB_BUTTONS 14
 
 class gui;
 
-struct Keypress
+class Keypress
 {
+private:
+	gui		*guiPtr;
+public:
 	void	setupUinputDevice();
 	void	listenForKeyPress(struct lirc_config **lirc_config);
 	void	decodeKeyPress(char *receivedCodeStr);
 	void	sendEventWrapper(unsigned int code, int value, int eventType);
+
+	void	setGuiPtr(class gui *gui)
+	{
+		guiPtr = gui;
+	}
 };

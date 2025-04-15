@@ -5,7 +5,7 @@
 
 Infared *ir_ptr = NULL;
 
-void	sighandler(int unused)
+static void	sighandler(int unused)
 {
 	(void)unused;
 	ir_ptr->~Infared();
@@ -13,12 +13,19 @@ void	sighandler(int unused)
 	exit(EXIT_SUCCESS);
 }
 
-void	setupSigHandling()
+static void	setupSigHandling()
 {
 	struct sigaction	sa;
 
 	sa.sa_handler = &sighandler;
 	sigaction(SIGINT, &sa, NULL);
+}
+
+static void	setupPointers(Infared &ir, Keypress &kp, gui &gui)
+{
+	ir_ptr = &ir;
+	gui.setKeypressPtr(&kp);
+	kp.setGuiPtr(&gui);
 }
 
 void	cleanExit(const char *exitMessage, int status)
@@ -35,19 +42,15 @@ int	main(void)
 	Keypress	kp;
 	gui			gui;
 
-	ir_ptr = &ir;
-	gui.setKeypressPtr(&kp);
+	setupPointers(ir, kp, gui);
 	setupSigHandling();
-	try
-	{
-		gui.setupGui();
-		kp.setupUinputDevice();
-		kp.listenForKeyPress(&(ir.getLircConfig()));
-	}
-	catch (std::string& e)
-	{
-		std::cerr << e << std::endl;
-	}
+	std::cout << "setup finished\n";
+
+	// gui.setupGui();
+	// std::cout << "gui setup finished\n";
+	kp.setupUinputDevice();
+	std::cout << "uinput setup finished\n";
+	kp.listenForKeyPress(&(ir.getLircConfig()));
 
 	return (0);
 }

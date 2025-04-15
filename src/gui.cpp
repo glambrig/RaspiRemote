@@ -29,7 +29,6 @@ void gui::setupGui()
 	openBrowser();
 	loadGuiHtmlPage();
 	defineMouseOffsets();
-	
 }
 
 void gui::openBrowser()
@@ -46,12 +45,9 @@ void gui::openBrowser()
 		}
 		execve("/usr/bin/chromium-browser", (char * const *)argv, __environ);
 	}
-	else
+	if (wait(NULL) < 0)
 	{
-		if (wait(NULL) < 0)
-		{
-			cleanExit("wait", EXIT_FAILURE);
-		}
+		cleanExit("wait", EXIT_FAILURE);
 	}
 	std::cout << "browser opening..." << std::endl;
 }
@@ -63,6 +59,18 @@ void gui::loadGuiHtmlPage()
 
 void gui::defineMouseOffsets()
 {
+	int		fd;
+	char	*buff;
+
+	fd = open("../gui/guioffset.conf", O_RDONLY);
+	if (fd < 0)
+	{
+		cleanExit("open guioffset.conf", EXIT_FAILURE);
+	}
+	while (read(fd, buff, 128) > 0)
+	{
+		
+	}
 	keypress->sendEventWrapper(REL_Y, SCREEN_SIZE_Y, MOUSE_EVENT);
 	keypress->sendEventWrapper(REL_X, -SCREEN_SIZE_X, MOUSE_EVENT);
 }
