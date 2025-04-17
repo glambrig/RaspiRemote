@@ -135,12 +135,10 @@ bool	Keypress::checkForNumberKey(char *receivedCode)
 	{
 		if (time(NULL) - lastKeyTime < 400)
 		{
-			if (lastKey == KEY_0 && beforeLastKey == KEY_0 && beforebeforeLastKey == KEY_0)
-				sendEventWrapper(KEY_C, 1, KEY_EVENT);
-			else if (lastKey == KEY_0 && beforeLastKey == KEY_0)
-				sendEventWrapper(KEY_B, 1, KEY_EVENT);
+			if (lastKey == KEY_0 && beforeLastKey == KEY_0)
+				sendEventWrapper(KEY_SPACE, 1, KEY_EVENT);
 			else if (lastKey == KEY_0)
-				sendEventWrapper(KEY_A, 1, KEY_EVENT);
+				sendEventWrapper(KEY_BACKSPACE, 1, KEY_EVENT);
 		}
 		sendEventWrapper(KEY_0, 1, KEY_EVENT);
 		beforebeforeLastKey = beforeLastKey;
@@ -172,11 +170,11 @@ bool	Keypress::checkForNumberKey(char *receivedCode)
 		if (time(NULL) - lastKeyTime < 400)
 		{
 			if (lastKey == KEY_2 && beforeLastKey == KEY_2 && beforebeforeLastKey == KEY_2)
-				sendEventWrapper(KEY_C, 1, KEY_EVENT);
+				sendEventWrapper(KEY_F, 1, KEY_EVENT);
 			else if (lastKey == KEY_2 && beforeLastKey == KEY_2)
-				sendEventWrapper(KEY_B, 1, KEY_EVENT);
+				sendEventWrapper(KEY_E, 1, KEY_EVENT);
 			else if (lastKey == KEY_2)
-				sendEventWrapper(KEY_A, 1, KEY_EVENT);
+				sendEventWrapper(KEY_D, 1, KEY_EVENT);
 		}
 		sendEventWrapper(KEY_2, 1, KEY_EVENT);
 		beforebeforeLastKey = beforeLastKey;
@@ -190,11 +188,11 @@ bool	Keypress::checkForNumberKey(char *receivedCode)
 		if (time(NULL) - lastKeyTime < 400)
 		{
 			if (lastKey == KEY_3 && beforeLastKey == KEY_3 && beforebeforeLastKey == KEY_3)
-				sendEventWrapper(KEY_C, 1, KEY_EVENT);
+				sendEventWrapper(KEY_I, 1, KEY_EVENT);
 			else if (lastKey == KEY_3 && beforeLastKey == KEY_3)
-				sendEventWrapper(KEY_B, 1, KEY_EVENT);
+				sendEventWrapper(KEY_H, 1, KEY_EVENT);
 			else if (lastKey == KEY_3)
-				sendEventWrapper(KEY_A, 1, KEY_EVENT);
+				sendEventWrapper(KEY_G, 1, KEY_EVENT);
 		}
 		sendEventWrapper(KEY_3, 1, KEY_EVENT);
 		beforebeforeLastKey = beforeLastKey;
@@ -208,11 +206,11 @@ bool	Keypress::checkForNumberKey(char *receivedCode)
 		if (time(NULL) - lastKeyTime < 400)
 		{
 			if (lastKey == KEY_4 && beforeLastKey == KEY_4 && beforebeforeLastKey == KEY_4)
-				sendEventWrapper(KEY_C, 1, KEY_EVENT);
+				sendEventWrapper(KEY_L, 1, KEY_EVENT);
 			else if (lastKey == KEY_4 && beforeLastKey == KEY_4)
-				sendEventWrapper(KEY_B, 1, KEY_EVENT);
+				sendEventWrapper(KEY_K, 1, KEY_EVENT);
 			else if (lastKey == KEY_4)
-				sendEventWrapper(KEY_A, 1, KEY_EVENT);
+				sendEventWrapper(KEY_J, 1, KEY_EVENT);
 		}
 		sendEventWrapper(KEY_4, 1, KEY_EVENT);
 		beforebeforeLastKey = beforeLastKey;
@@ -226,11 +224,11 @@ bool	Keypress::checkForNumberKey(char *receivedCode)
 		if (time(NULL) - lastKeyTime < 400)
 		{
 			if (lastKey == KEY_5 && beforeLastKey == KEY_5 && beforebeforeLastKey == KEY_5)
-				sendEventWrapper(KEY_C, 1, KEY_EVENT);
+				sendEventWrapper(KEY_O, 1, KEY_EVENT);
 			else if (lastKey == KEY_5 && beforeLastKey == KEY_5)
-				sendEventWrapper(KEY_B, 1, KEY_EVENT);
+				sendEventWrapper(KEY_N, 1, KEY_EVENT);
 			else if (lastKey == KEY_5)
-				sendEventWrapper(KEY_A, 1, KEY_EVENT);
+				sendEventWrapper(KEY_M, 1, KEY_EVENT);
 		}
 		sendEventWrapper(KEY_5, 1, KEY_EVENT);
 		beforebeforeLastKey = beforeLastKey;
@@ -244,11 +242,11 @@ bool	Keypress::checkForNumberKey(char *receivedCode)
 		if (time(NULL) - lastKeyTime < 400)
 		{
 			if (lastKey == KEY_6 && beforeLastKey == KEY_6 && beforebeforeLastKey == KEY_6)
-				sendEventWrapper(KEY_C, 1, KEY_EVENT);
+				sendEventWrapper(KEY_R, 1, KEY_EVENT);
 			else if (lastKey == KEY_6 && beforeLastKey == KEY_6)
-				sendEventWrapper(KEY_B, 1, KEY_EVENT);
+				sendEventWrapper(KEY_Q, 1, KEY_EVENT);
 			else if (lastKey == KEY_6)
-				sendEventWrapper(KEY_A, 1, KEY_EVENT);
+				sendEventWrapper(KEY_P, 1, KEY_EVENT);
 		}
 		sendEventWrapper(KEY_6, 1, KEY_EVENT);
 		beforebeforeLastKey = beforeLastKey;
@@ -262,11 +260,11 @@ bool	Keypress::checkForNumberKey(char *receivedCode)
 		if (time(NULL) - lastKeyTime < 400)
 		{
 			if (lastKey == KEY_7 && beforeLastKey == KEY_7 && beforebeforeLastKey == KEY_7)
-				sendEventWrapper(KEY_C, 1, KEY_EVENT);
+				sendEventWrapper(KEY_U, 1, KEY_EVENT);
 			else if (lastKey == KEY_7 && beforeLastKey == KEY_7)
-				sendEventWrapper(KEY_B, 1, KEY_EVENT);
+				sendEventWrapper(KEY_T, 1, KEY_EVENT);
 			else if (lastKey == KEY_7)
-				sendEventWrapper(KEY_A, 1, KEY_EVENT);
+				sendEventWrapper(KEY_S, 1, KEY_EVENT);
 		}
 		sendEventWrapper(KEY_7, 1, KEY_EVENT);
 		beforebeforeLastKey = beforeLastKey;
@@ -280,11 +278,11 @@ bool	Keypress::checkForNumberKey(char *receivedCode)
 		if (time(NULL) - lastKeyTime < 400)
 		{
 			if (lastKey == KEY_8 && beforeLastKey == KEY_8 && beforebeforeLastKey == KEY_8)
-				sendEventWrapper(KEY_C, 1, KEY_EVENT);
+				sendEventWrapper(KEY_X, 1, KEY_EVENT);
 			else if (lastKey == KEY_8 && beforeLastKey == KEY_8)
-				sendEventWrapper(KEY_B, 1, KEY_EVENT);
+				sendEventWrapper(KEY_W, 1, KEY_EVENT);
 			else if (lastKey == KEY_8)
-				sendEventWrapper(KEY_A, 1, KEY_EVENT);
+				sendEventWrapper(KEY_V, 1, KEY_EVENT);
 		}
 		sendEventWrapper(KEY_8, 1, KEY_EVENT);
 		beforebeforeLastKey = beforeLastKey;
@@ -297,12 +295,10 @@ bool	Keypress::checkForNumberKey(char *receivedCode)
 	{
 		if (time(NULL) - lastKeyTime < 400)
 		{
-			if (lastKey == KEY_9 && beforeLastKey == KEY_9 && beforebeforeLastKey == KEY_9)
-				sendEventWrapper(KEY_C, 1, KEY_EVENT);
-			else if (lastKey == KEY_9 && beforeLastKey == KEY_9)
-				sendEventWrapper(KEY_B, 1, KEY_EVENT);
+			if (lastKey == KEY_9 && beforeLastKey == KEY_9)
+				sendEventWrapper(KEY_Z, 1, KEY_EVENT);
 			else if (lastKey == KEY_9)
-				sendEventWrapper(KEY_A, 1, KEY_EVENT);
+				sendEventWrapper(KEY_Y, 1, KEY_EVENT);
 		}
 		sendEventWrapper(KEY_9, 1, KEY_EVENT);
 		beforebeforeLastKey = beforeLastKey;
