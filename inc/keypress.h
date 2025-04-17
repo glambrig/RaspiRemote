@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <ctime>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -26,6 +27,8 @@ public:
 	void	setupUinputDevice();
 	void	listenForKeyPress(struct lirc_config **lirc_config);
 	void	decodeKeyPress(char *receivedCodeStr);
+	bool	checkForNumberKey(char *receivedCode);
+	void	checkForArrowKey(char *receivedCode);
 	void	sendEventWrapper(unsigned int code, int value, int eventType);
 
 	void	setGuiPtr(class gui *gui)

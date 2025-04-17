@@ -11,6 +11,9 @@
 #define SCREEN_SIZE_X 1920
 #define SCREEN_SIZE_Y 1080
 
+#define BUTTONPRESS_ARROW 0
+#define BUTTONPRESS_NUMBER 1
+
 enum currentGuiLayer
 {
 	YOUTUBE,
@@ -24,8 +27,9 @@ struct	Keypress;
 class gui
 {
 private:
-	struct Keypress			*keypress;
-	enum currentGuiLayer	currentGuiLayer;
+struct Keypress			*keypress;
+enum currentGuiLayer	currentGuiLayer;
+bool					cursorOnSearchBar;
 	
 	void defineMouseOffsets();
 	void loadGuiHtmlPage();
@@ -41,5 +45,10 @@ public:
 	{
 		keypress = kp;
 	}
+	bool	isCursorOnSearchBar()
+	{
+		return (cursorOnSearchBar ? true : false);
+	}
+	// void	guiUpdate(char *receivedCode);
 };
 

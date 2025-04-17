@@ -1,4 +1,5 @@
 #include "../inc/keypress.h"
+#include "../inc/gui.h"
 #include "../inc/main.h"
 
 int uinp_fd = -1;
@@ -50,7 +51,6 @@ static void sendEvent(int fd, unsigned int keycode, int keyvalue, int eventType)
     event.type = EV_SYN;
     event.code = SYN_REPORT;
     event.value = 1;
-    write(fd, &event, sizeof(event));
     if (write(fd, &event, sizeof(event)) < 0)
 	{
 		cleanExit("write event", EXIT_FAILURE);
@@ -83,7 +83,10 @@ void Keypress::setupUinputDevice()
 
 	checkIoctlErrors();
 
-	write(uinp_fd, &uinp, sizeof(uinp));
+	if (write(uinp_fd, &uinp, sizeof(uinp)) < 0)
+	{
+		cleanExit("write", EXIT_FAILURE);
+	}
     if (ioctl(uinp_fd, UI_DEV_CREATE) < 0)
 	{
 		cleanExit("ioctl UI_DEV_CREATE", EXIT_FAILURE);
@@ -93,7 +96,7 @@ void Keypress::setupUinputDevice()
 void	Keypress::listenForKeyPress(struct lirc_config **lirc_config)
 {
 	char	*code = NULL;
-	char	*receivedCodeStr = NULL;
+	char	*receivedCode = NULL;
 
 	while (lirc_nextcode(&code) == 0)
 	{
@@ -101,72 +104,251 @@ void	Keypress::listenForKeyPress(struct lirc_config **lirc_config)
 			continue ;
 		do
 		{
-			if (lirc_code2char(*lirc_config, code, &receivedCodeStr) < 0)
+			if (lirc_code2char(*lirc_config, code, &receivedCode) < 0)
 			{
 				free(code);
 				cleanExit("lirc_code2char", EXIT_FAILURE);
 			}
-			if (receivedCodeStr == NULL)
+			if (receivedCode == NULL)
 			{
 				break ;
 			}
-			decodeKeyPress(receivedCodeStr);
-		} while (receivedCodeStr != NULL);
+			decodeKeyPress(receivedCode);
+		} while (receivedCode != NULL);
 		
 		free(code);
 		code = NULL;
 	}
 }
 
-void	Keypress::decodeKeyPress(char *receivedCodeStr)
+/*remember to change lircd.conf, otherwise repeat button presses won't work*/
+bool	Keypress::checkForNumberKey(char *receivedCode)
 {
-	if (ft_strncmp(receivedCodeStr, "KEY_0", 5) == 0)
-		std::cout << "KEY_0\n";
-	else if (ft_strncmp(receivedCodeStr, "KEY_1", 5) == 0)
-		std::cout << "KEY_1\n";
-	else if (ft_strncmp(receivedCodeStr, "KEY_2", 5) == 0)
-		std::cout << "KEY_2\n";
-	else if (ft_strncmp(receivedCodeStr, "KEY_3", 5) == 0)
-		std::cout << "KEY_3\n";
-	else if (ft_strncmp(receivedCodeStr, "KEY_4", 5) == 0)
-		std::cout << "KEY_4\n";
-	else if (ft_strncmp(receivedCodeStr, "KEY_5", 5) == 0)
-		std::cout << "KEY_5\n";
-	else if (ft_strncmp(receivedCodeStr, "KEY_6", 5) == 0)
-		std::cout << "KEY_6\n";
-	else if (ft_strncmp(receivedCodeStr, "KEY_7", 5) == 0)
-		std::cout << "KEY_7\n";
-	else if (ft_strncmp(receivedCodeStr, "KEY_8", 5) == 0)
-		std::cout << "KEY_8\n";
-	else if (ft_strncmp(receivedCodeStr, "KEY_9", 5) == 0)
-		std::cout << "KEY_9\n";
-	else if (ft_strncmp(receivedCodeStr, "UP_KEY", 6) == 0)
+	static int32_t	lastKey = -1;
+	static int32_t	beforeLastKey = -1;
+	static int32_t	beforebeforeLastKey = -1;
+	static time_t	lastKeyTime = time(NULL);
+
+	if (guiPtr->isCursorOnSearchBar() == false)
+		return (true);
+	if (ft_strncmp(receivedCode, "KEY_0", 5) == 0)
+	{
+		if (time(NULL) - lastKeyTime < 400)
+		{
+			if (lastKey == KEY_0 && beforeLastKey == KEY_0 && beforebeforeLastKey == KEY_0)
+				sendEventWrapper(KEY_C, 1, KEY_EVENT);
+			else if (lastKey == KEY_0 && beforeLastKey == KEY_0)
+				sendEventWrapper(KEY_B, 1, KEY_EVENT);
+			else if (lastKey == KEY_0)
+				sendEventWrapper(KEY_A, 1, KEY_EVENT);
+		}
+		sendEventWrapper(KEY_0, 1, KEY_EVENT);
+		beforebeforeLastKey = beforeLastKey;
+		beforeLastKey = lastKey;
+		lastKey = KEY_0;
+		lastKeyTime = time(NULL);
+		return (true);
+	}
+	if (ft_strncmp(receivedCode, "KEY_1", 5) == 0)
+	{
+		if (time(NULL) - lastKeyTime < 400)
+		{
+			if (lastKey == KEY_1 && beforeLastKey == KEY_1 && beforebeforeLastKey == KEY_1)
+				sendEventWrapper(KEY_C, 1, KEY_EVENT);
+			else if (lastKey == KEY_1 && beforeLastKey == KEY_1)
+				sendEventWrapper(KEY_B, 1, KEY_EVENT);
+			else if (lastKey == KEY_1)
+				sendEventWrapper(KEY_A, 1, KEY_EVENT);
+		}
+		sendEventWrapper(KEY_1, 1, KEY_EVENT);
+		beforebeforeLastKey = beforeLastKey;
+		beforeLastKey = lastKey;
+		lastKey = KEY_1;
+		lastKeyTime = time(NULL);
+		return (true);
+	}
+	if (ft_strncmp(receivedCode, "KEY_2", 5) == 0)
+	{
+		if (time(NULL) - lastKeyTime < 400)
+		{
+			if (lastKey == KEY_2 && beforeLastKey == KEY_2 && beforebeforeLastKey == KEY_2)
+				sendEventWrapper(KEY_C, 1, KEY_EVENT);
+			else if (lastKey == KEY_2 && beforeLastKey == KEY_2)
+				sendEventWrapper(KEY_B, 1, KEY_EVENT);
+			else if (lastKey == KEY_2)
+				sendEventWrapper(KEY_A, 1, KEY_EVENT);
+		}
+		sendEventWrapper(KEY_2, 1, KEY_EVENT);
+		beforebeforeLastKey = beforeLastKey;
+		beforeLastKey = lastKey;
+		lastKey = KEY_2;
+		lastKeyTime = time(NULL);
+		return (true);
+	}
+	if (ft_strncmp(receivedCode, "KEY_3", 5) == 0)
+	{
+		if (time(NULL) - lastKeyTime < 400)
+		{
+			if (lastKey == KEY_3 && beforeLastKey == KEY_3 && beforebeforeLastKey == KEY_3)
+				sendEventWrapper(KEY_C, 1, KEY_EVENT);
+			else if (lastKey == KEY_3 && beforeLastKey == KEY_3)
+				sendEventWrapper(KEY_B, 1, KEY_EVENT);
+			else if (lastKey == KEY_3)
+				sendEventWrapper(KEY_A, 1, KEY_EVENT);
+		}
+		sendEventWrapper(KEY_3, 1, KEY_EVENT);
+		beforebeforeLastKey = beforeLastKey;
+		beforeLastKey = lastKey;
+		lastKey = KEY_3;
+		lastKeyTime = time(NULL);
+		return (true);
+	}
+	if (ft_strncmp(receivedCode, "KEY_4", 5) == 0)
+	{
+		if (time(NULL) - lastKeyTime < 400)
+		{
+			if (lastKey == KEY_4 && beforeLastKey == KEY_4 && beforebeforeLastKey == KEY_4)
+				sendEventWrapper(KEY_C, 1, KEY_EVENT);
+			else if (lastKey == KEY_4 && beforeLastKey == KEY_4)
+				sendEventWrapper(KEY_B, 1, KEY_EVENT);
+			else if (lastKey == KEY_4)
+				sendEventWrapper(KEY_A, 1, KEY_EVENT);
+		}
+		sendEventWrapper(KEY_4, 1, KEY_EVENT);
+		beforebeforeLastKey = beforeLastKey;
+		beforeLastKey = lastKey;
+		lastKey = KEY_4;
+		lastKeyTime = time(NULL);
+		return (true);
+	}
+	if (ft_strncmp(receivedCode, "KEY_5", 5) == 0)
+	{
+		if (time(NULL) - lastKeyTime < 400)
+		{
+			if (lastKey == KEY_5 && beforeLastKey == KEY_5 && beforebeforeLastKey == KEY_5)
+				sendEventWrapper(KEY_C, 1, KEY_EVENT);
+			else if (lastKey == KEY_5 && beforeLastKey == KEY_5)
+				sendEventWrapper(KEY_B, 1, KEY_EVENT);
+			else if (lastKey == KEY_5)
+				sendEventWrapper(KEY_A, 1, KEY_EVENT);
+		}
+		sendEventWrapper(KEY_5, 1, KEY_EVENT);
+		beforebeforeLastKey = beforeLastKey;
+		beforeLastKey = lastKey;
+		lastKey = KEY_5;
+		lastKeyTime = time(NULL);
+		return (true);
+	}
+	if (ft_strncmp(receivedCode, "KEY_6", 5) == 0)
+	{
+		if (time(NULL) - lastKeyTime < 400)
+		{
+			if (lastKey == KEY_6 && beforeLastKey == KEY_6 && beforebeforeLastKey == KEY_6)
+				sendEventWrapper(KEY_C, 1, KEY_EVENT);
+			else if (lastKey == KEY_6 && beforeLastKey == KEY_6)
+				sendEventWrapper(KEY_B, 1, KEY_EVENT);
+			else if (lastKey == KEY_6)
+				sendEventWrapper(KEY_A, 1, KEY_EVENT);
+		}
+		sendEventWrapper(KEY_6, 1, KEY_EVENT);
+		beforebeforeLastKey = beforeLastKey;
+		beforeLastKey = lastKey;
+		lastKey = KEY_6;
+		lastKeyTime = time(NULL);
+		return (true);
+	}
+	if (ft_strncmp(receivedCode, "KEY_7", 5) == 0)
+	{
+		if (time(NULL) - lastKeyTime < 400)
+		{
+			if (lastKey == KEY_7 && beforeLastKey == KEY_7 && beforebeforeLastKey == KEY_7)
+				sendEventWrapper(KEY_C, 1, KEY_EVENT);
+			else if (lastKey == KEY_7 && beforeLastKey == KEY_7)
+				sendEventWrapper(KEY_B, 1, KEY_EVENT);
+			else if (lastKey == KEY_7)
+				sendEventWrapper(KEY_A, 1, KEY_EVENT);
+		}
+		sendEventWrapper(KEY_7, 1, KEY_EVENT);
+		beforebeforeLastKey = beforeLastKey;
+		beforeLastKey = lastKey;
+		lastKey = KEY_7;
+		lastKeyTime = time(NULL);
+		return (true);
+	}
+	if (ft_strncmp(receivedCode, "KEY_8", 5) == 0)
+	{
+		if (time(NULL) - lastKeyTime < 400)
+		{
+			if (lastKey == KEY_8 && beforeLastKey == KEY_8 && beforebeforeLastKey == KEY_8)
+				sendEventWrapper(KEY_C, 1, KEY_EVENT);
+			else if (lastKey == KEY_8 && beforeLastKey == KEY_8)
+				sendEventWrapper(KEY_B, 1, KEY_EVENT);
+			else if (lastKey == KEY_8)
+				sendEventWrapper(KEY_A, 1, KEY_EVENT);
+		}
+		sendEventWrapper(KEY_8, 1, KEY_EVENT);
+		beforebeforeLastKey = beforeLastKey;
+		beforeLastKey = lastKey;
+		lastKey = KEY_8;
+		lastKeyTime = time(NULL);
+		return (true);
+	}
+	if (ft_strncmp(receivedCode, "KEY_9", 5) == 0)
+	{
+		if (time(NULL) - lastKeyTime < 400)
+		{
+			if (lastKey == KEY_9 && beforeLastKey == KEY_9 && beforebeforeLastKey == KEY_9)
+				sendEventWrapper(KEY_C, 1, KEY_EVENT);
+			else if (lastKey == KEY_9 && beforeLastKey == KEY_9)
+				sendEventWrapper(KEY_B, 1, KEY_EVENT);
+			else if (lastKey == KEY_9)
+				sendEventWrapper(KEY_A, 1, KEY_EVENT);
+		}
+		sendEventWrapper(KEY_9, 1, KEY_EVENT);
+		beforebeforeLastKey = beforeLastKey;
+		beforeLastKey = lastKey;
+		lastKey = KEY_9;
+		lastKeyTime = time(NULL);
+		return (true);
+	}
+	return (false);
+}
+
+void	Keypress::checkForArrowKey(char *receivedCode)
+{
+	if (ft_strncmp(receivedCode, "UP_KEY", 6) == 0)
 	{
 		for (int i = 0; i < 25; i++)
 			sendEventWrapper(REL_Y, -2, MOUSE_EVENT);
 	}
-	else if (ft_strncmp(receivedCodeStr, "DOWN_KEY", 8) == 0)
+	else if (ft_strncmp(receivedCode, "DOWN_KEY", 8) == 0)
 	{
 		for (int i = 0; i < 25; i++)
 			sendEventWrapper(REL_Y, 2, MOUSE_EVENT);
 	}
-	else if (ft_strncmp(receivedCodeStr, "RIGHT_KEY", 9) == 0)
+	else if (ft_strncmp(receivedCode, "RIGHT_KEY", 9) == 0)
 	{
 		for (int i = 0; i < 25; i++)
 			sendEventWrapper(REL_X, 2, MOUSE_EVENT);
 	}
-	else if (ft_strncmp(receivedCodeStr, "LEFT_KEY", 8) == 0)
+	else if (ft_strncmp(receivedCode, "LEFT_KEY", 8) == 0)
 	{
 		for (int i = 0; i < 25; i++)
 			sendEventWrapper(REL_X, -2, MOUSE_EVENT);
 	}
-	else if (ft_strncmp(receivedCodeStr, "CLICK_KEY", 9) == 0)
+	else if (ft_strncmp(receivedCode, "CLICK_KEY", 9) == 0)
 	{
-		std::cout << "CLICK_KEY\n";
 		sendEventWrapper(BTN_LEFT, 1, KEY_EVENT);
 	}
 	else
 		std::cerr << "BAD KEY\n";
+}
+
+void	Keypress::decodeKeyPress(char *receivedCodeStr)
+{
+	if (checkForNumberKey(receivedCodeStr))
+		return ;
+	checkForArrowKey(receivedCodeStr);
 }
 
 void Keypress::sendEventWrapper(unsigned int code, int value, int eventType)

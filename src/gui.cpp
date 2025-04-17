@@ -2,7 +2,8 @@
 #include "../inc/keypress.h"
 #include <iostream>
 
-gui::gui()
+
+gui::gui() : cursorOnSearchBar(false)
 {
 }
 
@@ -21,9 +22,6 @@ gui::~gui()
 {
 }
 
-/*
-*	Opens browser, loads GUI page, defines mouse movement offsets
-*/
 void gui::setupGui()
 {
 	openBrowser();
@@ -60,7 +58,7 @@ void gui::loadGuiHtmlPage()
 void gui::defineMouseOffsets()
 {
 	int		fd;
-	char	*buff;
+	char	*buff = NULL;
 
 	fd = open("../gui/guioffset.conf", O_RDONLY);
 	if (fd < 0)
@@ -69,8 +67,24 @@ void gui::defineMouseOffsets()
 	}
 	while (read(fd, buff, 128) > 0)
 	{
-		
+		//find each value and set
 	}
 	keypress->sendEventWrapper(REL_Y, SCREEN_SIZE_Y, MOUSE_EVENT);
 	keypress->sendEventWrapper(REL_X, -SCREEN_SIZE_X, MOUSE_EVENT);
 }
+
+// void	gui::guiUpdate(uint8_t buttonPressType, char *receivedCode)
+// {
+// 	if (buttonPressType > 1)
+// 	{
+// 		std::cerr << "Unknown button type\n";
+// 		return ;
+// 	}
+// 	switch (buttonPressType)
+// 	{
+// 		case BUTTONPRESS_ARROW:
+// 			break ;
+// 		case BUTTONPRESS_NUMBER:
+// 			break ;
+// 	}
+// }
