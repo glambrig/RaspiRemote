@@ -58,8 +58,9 @@ void gui::loadGuiHtmlPage()
 void gui::defineMouseOffsets()
 {
 	int		fd;
-	char	*buff = NULL;
+	char	buff[129];
 
+	buff[128] = '\0';
 	fd = open("../gui/guioffset.conf", O_RDONLY);
 	if (fd < 0)
 	{

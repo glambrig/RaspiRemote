@@ -27,9 +27,9 @@ struct	Keypress;
 class gui
 {
 private:
-struct Keypress			*keypress;
-enum currentGuiLayer	currentGuiLayer;
-bool					cursorOnSearchBar;
+	struct Keypress			*keypress;
+	enum currentGuiLayer	currentGuiLayer;
+	bool					cursorOnSearchBar;
 	
 	void defineMouseOffsets();
 	void loadGuiHtmlPage();

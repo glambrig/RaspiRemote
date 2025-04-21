@@ -32,7 +32,7 @@ static void	checkIoctlErrors()
 	}
 }
 
-static void sendEvent(int fd, unsigned int keycode, int keyvalue, int eventType)
+static void sendEvent(int fd, unsigned int keycode, int keyValue, int eventType)
 {
     struct input_event	event;
 
@@ -42,7 +42,7 @@ static void sendEvent(int fd, unsigned int keycode, int keyvalue, int eventType)
 	else if (eventType == MOUSE_EVENT)
     	event.type = EV_REL;
     event.code = keycode;
-    event.value = keyvalue;
+    event.value = keyValue;
     if (write(fd, &event, sizeof(event)) < 0)
 	{
 		cleanExit("write event", EXIT_FAILURE);
@@ -121,8 +121,8 @@ void	Keypress::listenForKeyPress(struct lirc_config **lirc_config)
 	}
 }
 
-/*remember to change lircd.conf, otherwise repeat button presses won't work*/
-bool	Keypress::checkForNumberKey(char *receivedCode)
+/*remember to change lircrc, otherwise repeat button presses won't work*/
+void	Keypress::checkForNumberKey(char *receivedCode)
 {
 	static int32_t	lastKey = -1;
 	static int32_t	beforeLastKey = -1;
@@ -130,7 +130,7 @@ bool	Keypress::checkForNumberKey(char *receivedCode)
 	static time_t	lastKeyTime = time(NULL);
 
 	if (guiPtr->isCursorOnSearchBar() == false)
-		return (true);
+		return ;
 	if (ft_strncmp(receivedCode, "KEY_0", 5) == 0)
 	{
 		if (time(NULL) - lastKeyTime < 400)
@@ -145,7 +145,7 @@ bool	Keypress::checkForNumberKey(char *receivedCode)
 		beforeLastKey = lastKey;
 		lastKey = KEY_0;
 		lastKeyTime = time(NULL);
-		return (true);
+		return ;
 	}
 	if (ft_strncmp(receivedCode, "KEY_1", 5) == 0)
 	{
@@ -163,7 +163,7 @@ bool	Keypress::checkForNumberKey(char *receivedCode)
 		beforeLastKey = lastKey;
 		lastKey = KEY_1;
 		lastKeyTime = time(NULL);
-		return (true);
+		return ;
 	}
 	if (ft_strncmp(receivedCode, "KEY_2", 5) == 0)
 	{
@@ -181,7 +181,7 @@ bool	Keypress::checkForNumberKey(char *receivedCode)
 		beforeLastKey = lastKey;
 		lastKey = KEY_2;
 		lastKeyTime = time(NULL);
-		return (true);
+		return ;
 	}
 	if (ft_strncmp(receivedCode, "KEY_3", 5) == 0)
 	{
@@ -199,7 +199,7 @@ bool	Keypress::checkForNumberKey(char *receivedCode)
 		beforeLastKey = lastKey;
 		lastKey = KEY_3;
 		lastKeyTime = time(NULL);
-		return (true);
+		return ;
 	}
 	if (ft_strncmp(receivedCode, "KEY_4", 5) == 0)
 	{
@@ -217,7 +217,7 @@ bool	Keypress::checkForNumberKey(char *receivedCode)
 		beforeLastKey = lastKey;
 		lastKey = KEY_4;
 		lastKeyTime = time(NULL);
-		return (true);
+		return ;
 	}
 	if (ft_strncmp(receivedCode, "KEY_5", 5) == 0)
 	{
@@ -235,7 +235,7 @@ bool	Keypress::checkForNumberKey(char *receivedCode)
 		beforeLastKey = lastKey;
 		lastKey = KEY_5;
 		lastKeyTime = time(NULL);
-		return (true);
+		return ;
 	}
 	if (ft_strncmp(receivedCode, "KEY_6", 5) == 0)
 	{
@@ -253,7 +253,7 @@ bool	Keypress::checkForNumberKey(char *receivedCode)
 		beforeLastKey = lastKey;
 		lastKey = KEY_6;
 		lastKeyTime = time(NULL);
-		return (true);
+		return ;
 	}
 	if (ft_strncmp(receivedCode, "KEY_7", 5) == 0)
 	{
@@ -271,7 +271,7 @@ bool	Keypress::checkForNumberKey(char *receivedCode)
 		beforeLastKey = lastKey;
 		lastKey = KEY_7;
 		lastKeyTime = time(NULL);
-		return (true);
+		return ;
 	}
 	if (ft_strncmp(receivedCode, "KEY_8", 5) == 0)
 	{
@@ -289,7 +289,7 @@ bool	Keypress::checkForNumberKey(char *receivedCode)
 		beforeLastKey = lastKey;
 		lastKey = KEY_8;
 		lastKeyTime = time(NULL);
-		return (true);
+		return ;
 	}
 	if (ft_strncmp(receivedCode, "KEY_9", 5) == 0)
 	{
@@ -305,50 +305,56 @@ bool	Keypress::checkForNumberKey(char *receivedCode)
 		beforeLastKey = lastKey;
 		lastKey = KEY_9;
 		lastKeyTime = time(NULL);
-		return (true);
+		return ;
 	}
-	return (false);
+	return ;
 }
 
-void	Keypress::checkForArrowKey(char *receivedCode)
+bool	Keypress::checkForArrowKey(char *receivedCode)
 {
 	if (ft_strncmp(receivedCode, "UP_KEY", 6) == 0)
 	{
 		for (int i = 0; i < 25; i++)
 			sendEventWrapper(REL_Y, -2, MOUSE_EVENT);
+		return (true);
 	}
 	else if (ft_strncmp(receivedCode, "DOWN_KEY", 8) == 0)
 	{
 		for (int i = 0; i < 25; i++)
 			sendEventWrapper(REL_Y, 2, MOUSE_EVENT);
+		return (true);
 	}
 	else if (ft_strncmp(receivedCode, "RIGHT_KEY", 9) == 0)
 	{
 		for (int i = 0; i < 25; i++)
 			sendEventWrapper(REL_X, 2, MOUSE_EVENT);
+		return (true);
 	}
 	else if (ft_strncmp(receivedCode, "LEFT_KEY", 8) == 0)
 	{
 		for (int i = 0; i < 25; i++)
 			sendEventWrapper(REL_X, -2, MOUSE_EVENT);
+		return (true);
 	}
 	else if (ft_strncmp(receivedCode, "CLICK_KEY", 9) == 0)
 	{
 		sendEventWrapper(BTN_LEFT, 1, KEY_EVENT);
+		sendEventWrapper(BTN_LEFT, 0, KEY_EVENT);
+		return (true);
 	}
-	else
-		std::cerr << "BAD KEY\n";
+	return (false);
 }
 
 void	Keypress::decodeKeyPress(char *receivedCodeStr)
 {
-	if (checkForNumberKey(receivedCodeStr))
-		return ;
-	checkForArrowKey(receivedCodeStr);
+	if (checkForArrowKey(receivedCodeStr))
+		return ;		
+	checkForNumberKey(receivedCodeStr);
 }
 
 void Keypress::sendEventWrapper(unsigned int code, int value, int eventType)
 {
+	std::cout << "code: " << code << '\n';
 	sendEvent(uinp_fd, code, value, eventType);
 }
 
