@@ -3,7 +3,7 @@
 CC = c++
 
 #remove -g before final push
-CFLAGS = -Wall -Wextra -Werror -g 
+CFLAGS = -Wall -Wextra -Werror
 
 DEBUG_FLAGS = -Wall -Wextra -Werror -g
 LDFLAGS = -lwiringPi -lstdc++ -L./inc/libft -lft -llirc_client
