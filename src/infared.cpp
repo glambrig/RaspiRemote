@@ -1,37 +1,9 @@
 #include "../inc/infared.h"
 #include "../inc/main.h"
 
-Infared::Infared()
-{
-	wiringPiSetup();
-	pinMode(IR_OUTPUT_PIN, INPUT);
-	lircSetup();
-}
+struct lirc_config	*lirc_config = NULL;
 
-Infared::~Infared()
-{
-	lirc_freeconfig(lirc_config);
-	lirc_deinit();
-	cleanupUinputDevice();
-}
-
-Infared::Infared(const Infared& copy)
-{
-	(void)copy;
-}
-
-Infared& Infared::operator=(const Infared& rhs)
-{
-	(void)rhs;
-	return (*this);
-}
-
-struct lirc_config	*&Infared::getLircConfig()
-{
-	return (lirc_config);
-}
-
-void	Infared::lircSetup()
+static void	lircSetup()
 {	
 	if (lirc_init("raspiremote", LIRC_DEBUG_LEVEL) == -1)
 	{
@@ -41,4 +13,22 @@ void	Infared::lircSetup()
 	{
 		cleanExit("lirc_readconfig", EXIT_FAILURE);
 	}
+}
+
+void Infared::setup()
+{
+	wiringPiSetup();
+	pinMode(IR_OUTPUT_PIN, INPUT);
+	lircSetup();
+}
+
+void Infared::destroy()
+{
+	lirc_freeconfig(lirc_config);
+	lirc_deinit();
+}
+
+struct lirc_config	**Infared::getLircConfig()
+{
+	return (&lirc_config);
 }

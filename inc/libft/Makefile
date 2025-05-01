@@ -81,7 +81,7 @@ $(NAME): $(OBJ)
 	ar rcs $(NAME) $^
 
 clean:
-	rm -f *.o
+	rm -f ./*.o
 	rm -f ./*/*.o
 
 fclean: clean

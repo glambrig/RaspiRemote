@@ -70,6 +70,6 @@ void gui::defineMouseOffsets()
 	{
 		//find each value and set
 	}
-	keypress->sendEventWrapper(REL_Y, SCREEN_SIZE_Y, MOUSE_EVENT);
-	keypress->sendEventWrapper(REL_X, -SCREEN_SIZE_X, MOUSE_EVENT);
+	// keypress->sendEventWrapper(REL_Y, SCREEN_SIZE_Y, MOUSE_EVENT);
+	// keypress->sendEventWrapper(REL_X, -SCREEN_SIZE_X, MOUSE_EVENT);
 }

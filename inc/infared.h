@@ -15,35 +15,21 @@
 
 #define IR_OUTPUT_PIN 17
 #define LIRC_DEBUG_LEVEL 1
-#define KEYPRESSCODES_SIZE 15
 
-// 	 KEY_0 = 0x00FF6897;
-// 	 KEY_1 = 0x00FF30CF;
-// 	 KEY_2 = 0x00FF18E7;
-// 	 KEY_3 = 0x00FF7A85;
-// 	 KEY_4 = 0x00FF10EF;
-// 	 KEY_5 = 0x00FF38C7;
-// 	 KEY_6 = 0x00FF5AA5;
-// 	 KEY_7 = 0x00FF42BD;
-// 	 KEY_8 = 0x00FF4AB5;
-// 	 KEY_9 = 0x00FF52AD;
-// 	 BTN_DPAD_LEFT = 0x00FF22DD;
-// 	 BTN_DPAD_RIGHT = 0x00FFC23D;
-// 	 BTN_DPAD_DOWN = 0x00FFE01F;
-// 	 BTN_DPAD_UP = 0x00FF906F;
-// 	 BTN_MOUSE = 0x00FF02FD;
-
-typedef class Infared
+namespace Infared
 {
-private:
-	struct lirc_config	*lirc_config = NULL;
+	/*
+	*	Sets up WiringPi and LIRC
+	*/
+	void				setup();
 
-	Infared(const Infared& copy);
-	Infared& 	operator=(const Infared& rhs);
-	void		lircSetup();
-public:
-	Infared();
-	~Infared();
+	/*
+	*	Releases resources used by LIRC
+	*/
+	void				destroy();
 
-	struct lirc_config	*&getLircConfig();
-}	Infared;
+	/*
+	*	Returns a pointer to the pointer referencing lirc_config
+	*/
+	struct lirc_config	**getLircConfig();
+}	//namespace
