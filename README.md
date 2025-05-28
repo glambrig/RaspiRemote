@@ -31,7 +31,7 @@ This had me stumped for days, so you're welcome.
 
 `-bin`: adds raspiremote directory to $PATH, so you can run this program from anywhere
 
-`-nopi`: if you're not running `raspiremote` on a raspberry pi (if you don't include this option, wiringpi won't work)
+`-nopi`: allows you to compile if you're not running `raspiremote` on a raspberry pi (you won't be able to run it though)
 
 - Launch the program with `./raspiremote`
 

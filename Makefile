@@ -3,7 +3,7 @@
 CC = c++
 CFLAGS = -Wall -Wextra -Werror
 DEBUG_FLAGS = -Wall -Wextra -Werror -g
-LDFLAGS = -lwiringPi -lstdc++ -L./inc/libft -lft -L./inc/uinputWrapperLib -lUinputWrapper -llirc_client
+LDFLAGS = -lwiringPi -lstdc++ -L./inc/libft -lft -L./inc/LibUinputWrapper -lUinputWrapper -llirc_client
 NAME = raspiremote
 
 SRC = src/infared.cpp \
@@ -13,13 +13,13 @@ SRC = src/infared.cpp \
 
 OBJ = $(SRC:.cpp=.o)
 
-all: libft uinputWrapperLib $(NAME)
+all: libft LibUinputWrapper $(NAME)
 
 libft:
 	make -C ./inc/libft -O
 
-uinputWrapperLib:
-	make -C ./inc/uinputWrapperLib -O
+LibUinputWrapper:
+	make -C ./inc/LibUinputWrapper -O
 
 $(NAME): $(OBJ)
 	$(CC) -O -o $(NAME) $(OBJ) $(LDFLAGS)
@@ -33,11 +33,11 @@ debug: re
 clean:
 	rm -rf $(OBJ)
 	make -C ./inc/libft clean
-	make -C ./inc/uinputWrapperLib clean
+	make -C ./inc/LibUinputWrapper clean
 
 fclean: clean
 	rm -rf $(NAME)
 	make -C ./inc/libft fclean
-	make -C ./inc/uinputWrapperLib fclean
+	make -C ./inc/LibUinputWrapper fclean
 
 re: fclean all

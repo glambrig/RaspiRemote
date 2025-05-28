@@ -32,13 +32,15 @@ void	Keypress::listenForKeyPress(struct lirc_config **lirc_config)
 
 void	Keypress::checkForNumberKey(char *receivedCode)
 {
-	static int32_t			lastKey = -1;
-	static int32_t			beforeLastKey = -1;
-	static int32_t			beforeBeforeLastKey = -1;
-	static struct timeval	lastKeyTime;
+	(void)receivedCode;
+	// static int32_t			lastKey = -1;
+	// static int32_t			beforeLastKey = -1;
+	// static int32_t			beforeBeforeLastKey = -1;
+	// static struct timeval	lastKeyTime;
 
-	if (guiPtr->isCursorOnSearchBar() == false)
-		return ;
+	// if (guiPtr->isCursorOnSearchBar() == false)
+	// 	return ;
+
 		// TODO
 // 	gettimeofday(&lastKeyTime, NULL);
 // 	if (ft_strncmp(receivedCode, "KEY_0", 5) == 0)
@@ -65,27 +67,27 @@ bool	Keypress::checkForArrowKey(char *receivedCode)
 {
 	if (ft_strncmp(receivedCode, "UP_KEY", 6) == 0)
 	{
-		uinputWrapperLib::move_mouse_from_cursor(uinput_fd, 0, -10);
+		libUinputWrapper::move_mouse_from_cursor(uinput_fd, 0, -10);
 		return (true);
 	}
 	else if (ft_strncmp(receivedCode, "DOWN_KEY", 8) == 0)
 	{
-		uinputWrapperLib::move_mouse_from_cursor(uinput_fd, 0, 10);
+		libUinputWrapper::move_mouse_from_cursor(uinput_fd, 0, 10);
 		return (true);
 	}
 	else if (ft_strncmp(receivedCode, "RIGHT_KEY", 9) == 0)
 	{
-		uinputWrapperLib::move_mouse_from_cursor(uinput_fd, 10, 0);
+		libUinputWrapper::move_mouse_from_cursor(uinput_fd, 10, 0);
 		return (true);
 	}
 	else if (ft_strncmp(receivedCode, "LEFT_KEY", 8) == 0)
 	{
-		uinputWrapperLib::move_mouse_from_cursor(uinput_fd, -10, 0);
+		libUinputWrapper::move_mouse_from_cursor(uinput_fd, -10, 0);
 		return (true);
 	}
 	else if (ft_strncmp(receivedCode, "CLICK_KEY", 9) == 0)
 	{
-		uinputWrapperLib::click(uinput_fd, 0);
+		libUinputWrapper::click(uinput_fd, LEFT_CLICK, 0);
 		return (true);
 	}
 	return (false);

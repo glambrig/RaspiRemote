@@ -4,7 +4,7 @@
 #include <ctime>
 #include <lirc/lirc_client.h>
 #include "../inc/libft/libft.h"
-#include "../inc/uinputWrapperLib/uinputWrapperLib.h"
+#include "../inc/LibUinputWrapper/libUinputWrapper.h"
 
 class gui;
 
