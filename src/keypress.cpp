@@ -35,7 +35,7 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 	static int32_t			lastKey = -1;
 	static int32_t			beforeLastKey = -1;
 	static int32_t			beforeBeforeLastKey = -1;
-	static time_t			lastKeyTime = -1;
+	static int64_t			lastKeyTime = -1;
 	static struct timeval	currentTime;
 
 	if (guiPtr->isCursorOnSearchBar() == false)
@@ -47,11 +47,11 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 
 	if (lastKey != key ||
 			lastKeyTime == -1 ||
-				(currentTime.tv_sec - lastKeyTime >= 1 &&
+				(currentTime.tv_usec - lastKeyTime >= 500000 &&
 				key == lastKey))
 	{
 		lastKey = key;
-		lastKeyTime = currentTime.tv_sec;
+		lastKeyTime = currentTime.tv_usec;
 		return (key);
 	}
 	else if (key == lastKey &&
@@ -60,7 +60,7 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 	{
 		beforeLastKey = lastKey;
 		lastKey = key;
-		lastKeyTime = currentTime.tv_sec;
+		lastKeyTime = currentTime.tv_usec;
 		switch (key)
 		{
 			case (KEY_0):
@@ -95,7 +95,7 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 		beforeBeforeLastKey = beforeLastKey;
 		beforeLastKey = lastKey;
 		lastKey = key;
-		lastKeyTime = currentTime.tv_sec;
+		lastKeyTime = currentTime.tv_usec;
 		switch (key)
 		{
 			case (KEY_0):
