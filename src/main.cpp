@@ -8,7 +8,7 @@ int			uinput_fd;
 static void	sighandler(int unused)
 {
 	(void)unused;
-	cleanExit("Signal caught, raspiremote exited successfully\n", EXIT_SUCCESS);
+	cleanExit("\nSignal caught, raspiremote exited successfully\n", EXIT_SUCCESS);
 }
 
 static void	setupSigHandling()
