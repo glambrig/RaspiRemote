@@ -47,11 +47,11 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 
 	if (lastKey != key ||
 			lastKeyTime == -1 ||
-				(currentTime.tv_usec - lastKeyTime >= 500000 &&
+				(currentTime.tv_sec - lastKeyTime >= 1 &&
 				key == lastKey))
 	{
 		lastKey = key;
-		lastKeyTime = currentTime.tv_usec;
+		lastKeyTime = currentTime.tv_sec;
 		return (key);
 	}
 	else if (key == lastKey &&
@@ -60,7 +60,7 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 	{
 		beforeLastKey = lastKey;
 		lastKey = key;
-		lastKeyTime = currentTime.tv_usec;
+		lastKeyTime = currentTime.tv_sec;
 		switch (key)
 		{
 			case (KEY_0):
@@ -95,7 +95,7 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 		beforeBeforeLastKey = beforeLastKey;
 		beforeLastKey = lastKey;
 		lastKey = key;
-		lastKeyTime = currentTime.tv_usec;
+		lastKeyTime = currentTime.tv_sec;
 		switch (key)
 		{
 			case (KEY_0):
