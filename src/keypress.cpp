@@ -46,12 +46,17 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 	gettimeofday(&currentTime, NULL);
 
 	if (lastKey != key ||
-			lastKeyTime == -1 ||
-				(currentTime.tv_usec - lastKeyTime >= 500000 &&
-				key == lastKey))
+			lastKeyTime == -1)
 	{
 		lastKey = key;
 		lastKeyTime = currentTime.tv_usec;
+		return (key);
+	}
+
+	if (currentTime.tv_usec - lastKeyTime >= 500000 &&
+				key == lastKey)
+	{
+		std::cout << "time between is: " << currentTime.tv_usec - lastKeyTime << '\n';
 		return (key);
 	}
 	else if (key == lastKey &&
