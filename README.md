@@ -29,7 +29,7 @@ This had me stumped for days, so you're welcome.
 
 `-nocopy`: if you're not using an Elegoo remote, this option ensures that my configuration files won't be copied to /etc/lirc. This means that you have to do all the work mentioned above.
 
-`-bin`: adds raspiremote directory to $PATH, so you can run this program from anywhere
+`-noapt`: skips updating references and installing lirc via apt
 
 `-nopi`: allows you to compile if you're not running `raspiremote` on a raspberry pi (you won't be able to run it though)
 

@@ -1,8 +1,10 @@
 #!/bin/sh
 
-sudo apt update -y
-sudo apt install lirc liblirc-dev -y || exit 1
-clear
+if [ "$1" = "-noapt" ] || [ "$2" = "-noapt" ] || [ "$3" = "-noapt" ]; then
+	sudo apt update -y || exit 1
+	sudo apt install lirc liblirc-dev -y || exit 1
+	clear
+fi
 
 if [ ! -d "inc/LibUinputWrapper" ]; then
 	git clone git@github.com:glambrig/LibUinputWrapper.git
