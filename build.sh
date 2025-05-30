@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$1" = "-noapt" ] || [ "$2" = "-noapt" ] || [ "$3" = "-noapt" ]; then
+if [ "$1" != "-noapt" ] || [ "$2" != "-noapt" ] || [ "$3" != "-noapt" ]; then
 	sudo apt update -y || exit 1
 	sudo apt install lirc liblirc-dev -y || exit 1
 	clear
