@@ -245,15 +245,7 @@ void	Keypress::checkForNumberKey(std::string &receivedCodeStr)
 	}
 	else if (receivedCodeStr == "KEY_7")
 	{
-		int key =if (r
-if (r
-if (r
-if (r
-if (r
-if (r
-if (r
-if (r
-if (r discernCorrectKey(KEY_7);
+		int key = discernCorrectKey(KEY_7);
 		if (key == -1)
 		{
 			return ;
