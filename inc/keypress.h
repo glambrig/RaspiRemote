@@ -3,7 +3,6 @@
 #include <iostream>
 #include <ctime>
 #include <lirc/lirc_client.h>
-#include "../inc/libft/libft.h"
 #include "../inc/LibUinputWrapper/libUinputWrapper.h"
 
 #define MOUSE_X_MOVE_OFFSET 15

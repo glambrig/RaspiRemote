@@ -11,7 +11,6 @@
 
 #include <wiringPi.h>
 #include <lirc/lirc_client.h>
-#include "../inc/libft/libft.h"
 
 #define IR_OUTPUT_PIN 17
 #define LIRC_DEBUG_LEVEL 1
