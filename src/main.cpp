@@ -8,10 +8,7 @@ int			uinput_fd;
 static void	sighandler(int unused)
 {
 	(void)unused;
-	Infared::destroy();
-	libUinputWrapper::cleanup_device(uinput_fd);
-	std::cout << " Signal caught, raspiremote exited successfully" << std::endl;
-	exit(EXIT_SUCCESS);
+	cleanExit("Signal caught, raspiremote exited successfully\n", EXIT_SUCCESS);
 }
 
 static void	setupSigHandling()
@@ -31,7 +28,13 @@ static void	setupPointers(Keypress &kp, gui &gui)
 void	cleanExit(const char *exitMessage, int status)
 {
 	if (status == EXIT_FAILURE)
+	{
 		perror(exitMessage);
+	}
+	else
+	{
+		std::cout << exitMessage;
+	}
 	Infared::destroy();
 	libUinputWrapper::cleanup_device(uinput_fd);
 	exit(status);
