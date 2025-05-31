@@ -45,7 +45,7 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 
 	gettimeofday(&currentTime, NULL);
 
-	std::cout << "lastkeytime: " << lastKeyTime << "\ncurrenttime: " << currentTime.tv_usec << '\n';
+	std::cout << "lastkeytime: " << lastKeyTime << " currenttime: " << currentTime.tv_usec << "res=" << currentTime.tv_usec - lastKeyTime << '\n';
 	if (currentTime.tv_usec - lastKeyTime >= 1000000)
 	{
 		lastKey = -1;
