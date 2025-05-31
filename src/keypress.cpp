@@ -45,10 +45,14 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 
 	gettimeofday(&currentTime, NULL);
 
+	if (currentTime.tv_usec - lastKeyTime >= 500000)
+	{
+		lastKey = -1;
+		beforeLastKey = -1;
+		beforeBeforeLastKey = -1;
+	}
 	if (lastKey != key ||
-			lastKeyTime == -1 ||
-				(currentTime.tv_usec - lastKeyTime >= 500000 &&
-				key == lastKey))
+			lastKeyTime == -1)
 	{
 		lastKey = key;
 		lastKeyTime = currentTime.tv_usec;
