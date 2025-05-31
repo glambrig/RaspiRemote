@@ -35,7 +35,8 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 	static int32_t			lastKey = -1;
 	static int32_t			beforeLastKey = -1;
 	static int32_t			beforeBeforeLastKey = -1;
-	static int64_t			lastKeyTime = -1;
+	static time_t			lastKeyTime_sec = -1;
+	static time_t			lastKeyTime_usec = -1;
 	static struct timeval	currentTime;
 
 	if (guiPtr->isCursorOnSearchBar() == false)
@@ -45,18 +46,20 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 
 	gettimeofday(&currentTime, NULL);
 
-	std::cout << "lastkeytime: " << lastKeyTime << " currenttime: " << currentTime.tv_usec << "res=" << currentTime.tv_usec - lastKeyTime << '\n';
-	if (currentTime.tv_usec - lastKeyTime >= 1000000)
+	// std::cout << "lastkeytime: " << lastKeyTime << " currenttime: " << currentTime.tv_usec << "res=" << currentTime.tv_usec - lastKeyTime << '\n';
+	if ((currentTime.tv_sec - lastKeyTime_sec) + (currentTime.tv_usec - lastKeyTime_usec) / 100000 >= 1.0)
 	{
 		lastKey = -1;
 		beforeLastKey = -1;
 		beforeBeforeLastKey = -1;
 	}
 	if (lastKey != key ||
-			lastKeyTime == -1)
+			lastKeyTime_sec == -1 ||
+				lastKeyTime_usec == -1)
 	{
 		lastKey = key;
-		lastKeyTime = currentTime.tv_usec;
+		lastKeyTime_sec = currentTime.tv_sec;
+		lastKeyTime_usec = currentTime.tv_usec;
 		return (key);
 	}
 
@@ -66,7 +69,8 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 	{
 		beforeLastKey = lastKey;
 		lastKey = key;
-		lastKeyTime = currentTime.tv_usec;
+		lastKeyTime_sec = currentTime.tv_sec;
+		lastKeyTime_usec = currentTime.tv_usec;
 		libUinputWrapper::press_key(uinput_fd, KEY_BACKSPACE, 0);
 		switch (key)
 		{
@@ -102,7 +106,8 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 		beforeBeforeLastKey = beforeLastKey;
 		beforeLastKey = lastKey;
 		lastKey = key;
-		lastKeyTime = currentTime.tv_usec;
+		lastKeyTime_sec = currentTime.tv_sec;
+		lastKeyTime_usec = currentTime.tv_usec;
 		libUinputWrapper::press_key(uinput_fd, KEY_BACKSPACE, 0);
 		switch (key)
 		{
