@@ -49,7 +49,7 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 	time_t difference = currentTime.tv_sec - lastKeyTime_sec;
 	difference += (currentTime.tv_usec - lastKeyTime_usec) / 1000000.0;
 	std::cout << "difference: " << difference << '\n';
-	if ((currentTime.tv_sec - lastKeyTime_sec) + (currentTime.tv_usec - lastKeyTime_usec) / 100000.0 >= 1.0)
+	if (difference >= 1.0)
 	{
 		lastKey = -1;
 		beforeLastKey = -1;
