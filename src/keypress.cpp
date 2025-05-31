@@ -35,8 +35,10 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 	static int32_t			lastKey = -1;
 	static int32_t			beforeLastKey = -1;
 	static int32_t			beforeBeforeLastKey = -1;
-	static struct timeval	*lastKeyTime = NULL;
-	struct timeval			currentTime;
+	static struct timeval	currentTime;
+	static time_t			lastKeyTime_sec = -1;
+	static time_t			lastKeyTime_usec = -1;
+	time_t					difference;
 
 	if (guiPtr->isCursorOnSearchBar() == false)
 	{
@@ -45,17 +47,33 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 
 	gettimeofday(&currentTime, NULL);
 
+	difference = currentTime.tv_sec - lastKeyTime_sec;
+	difference += (currentTime.tv_usec - lastKeyTime_usec) / 1000000.0;
+	if (difference >= 1.0)
+	{
+		lastKey = -1;
+		beforeLastKey = -1;
+		beforeBeforeLastKey = -1;
+	}
 	if (lastKey != key ||
-			lastKeyTime == NULL ||
-				currentTime.tv_usec - lastKeyTime->tv_usec >= 500000)
+			lastKeyTime_sec == -1 ||
+				lastKeyTime_usec == -1)
 	{
 		lastKey = key;
-		*lastKeyTime = currentTime;
+		lastKeyTime_sec = currentTime.tv_sec;
+		lastKeyTime_usec = currentTime.tv_usec;
 		return (key);
 	}
-	else if (key == lastKey &&
-				beforeLastKey == -1)
+
+	if (key == lastKey &&
+				(beforeLastKey == -1 ||
+				key != beforeLastKey))
 	{
+		beforeLastKey = lastKey;
+		lastKey = key;
+		lastKeyTime_sec = currentTime.tv_sec;
+		lastKeyTime_usec = currentTime.tv_usec;
+		libUinputWrapper::press_key(uinput_fd, KEY_BACKSPACE, 0);
 		switch (key)
 		{
 			case (KEY_0):
@@ -84,8 +102,18 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 	}
 	else if (key == lastKey && 
 				key == beforeLastKey &&
-					beforeBeforeLastKey == -1)
+					(beforeBeforeLastKey == -1 ||
+					key != beforeBeforeLastKey))
 	{
+		beforeBeforeLastKey = beforeLastKey;
+		beforeLastKey = lastKey;
+		lastKey = key;
+		lastKeyTime_sec = currentTime.tv_sec;
+		lastKeyTime_usec = currentTime.tv_usec;
+		if (key != KEY_BACKSPACE)
+		{
+			libUinputWrapper::press_key(uinput_fd, KEY_BACKSPACE, 0);
+		}
 		switch (key)
 		{
 			case (KEY_0):
@@ -116,6 +144,7 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 				key == beforeLastKey &&
 					key == beforeBeforeLastKey)
 	{
+		libUinputWrapper::press_key(uinput_fd, KEY_BACKSPACE, 0);
 		switch (key)
 		{
 			case (KEY_0):
@@ -161,7 +190,7 @@ void	Keypress::checkForNumberKey(std::string &receivedCodeStr)
 			error = true;
 		}
 	}
-	if (receivedCodeStr == "KEY_1")
+	else if (receivedCodeStr == "KEY_1")
 	{
 		int key = discernCorrectKey(KEY_1);
 		if (key == -1)
@@ -173,7 +202,7 @@ void	Keypress::checkForNumberKey(std::string &receivedCodeStr)
 			error = true;
 		}
 	}
-	if (receivedCodeStr == "KEY_2")
+	else if (receivedCodeStr == "KEY_2")
 	{
 		int key = discernCorrectKey(KEY_2);
 		if (key == -1)
@@ -185,7 +214,7 @@ void	Keypress::checkForNumberKey(std::string &receivedCodeStr)
 			error = true;
 		}
 	}
-	if (receivedCodeStr == "KEY_3")
+	else if (receivedCodeStr == "KEY_3")
 	{
 		int key = discernCorrectKey(KEY_3);
 		if (key == -1)
@@ -197,7 +226,7 @@ void	Keypress::checkForNumberKey(std::string &receivedCodeStr)
 			error = true;
 		}
 	}
-	if (receivedCodeStr == "KEY_4")
+	else if (receivedCodeStr == "KEY_4")
 	{
 		int key = discernCorrectKey(KEY_4);
 		if (key == -1)
@@ -209,7 +238,7 @@ void	Keypress::checkForNumberKey(std::string &receivedCodeStr)
 			error = true;
 		}
 	}
-	if (receivedCodeStr == "KEY_5")
+	else if (receivedCodeStr == "KEY_5")
 	{
 		int key = discernCorrectKey(KEY_5);
 		if (key == -1)
@@ -221,7 +250,7 @@ void	Keypress::checkForNumberKey(std::string &receivedCodeStr)
 			error = true;
 		}
 	}
-	if (receivedCodeStr == "KEY_6")
+	else if (receivedCodeStr == "KEY_6")
 	{
 		int key = discernCorrectKey(KEY_6);
 		if (key == -1)
@@ -233,7 +262,7 @@ void	Keypress::checkForNumberKey(std::string &receivedCodeStr)
 			error = true;
 		}
 	}
-	if (receivedCodeStr == "KEY_7")
+	else if (receivedCodeStr == "KEY_7")
 	{
 		int key = discernCorrectKey(KEY_7);
 		if (key == -1)
@@ -245,7 +274,7 @@ void	Keypress::checkForNumberKey(std::string &receivedCodeStr)
 			error = true;
 		}
 	}
-	if (receivedCodeStr == "KEY_8")
+	else if (receivedCodeStr == "KEY_8")
 	{
 		int key = discernCorrectKey(KEY_8);
 		if (key == -1)
@@ -257,7 +286,7 @@ void	Keypress::checkForNumberKey(std::string &receivedCodeStr)
 			error = true;
 		}
 	}
-	if (receivedCodeStr == "KEY_9")
+	else if (receivedCodeStr == "KEY_9")
 	{
 		int key = discernCorrectKey(KEY_9);
 		if (key == -1)
