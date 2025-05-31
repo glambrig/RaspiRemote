@@ -2,7 +2,7 @@
 #include "../inc/keypress.h"
 #include <iostream>
 
-//CHANGE THIS
+//cursorOnSearchBar(true) is for TESTING, change to FALSE
 gui::gui() : cursorOnSearchBar(true)
 {
 }

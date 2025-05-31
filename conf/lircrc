@@ -93,7 +93,7 @@ begin
     button = BTN_DPAD_LEFT
     prog = raspiremote
     config = LEFT_KEY
-    repeat = 0
+    repeat = 100
     delay = 1
 end
 
@@ -102,7 +102,7 @@ begin
     button = BTN_DPAD_RIGHT
     prog = raspiremote
     config = RIGHT_KEY
-    repeat = 0
+    repeat = 100
     delay = 1
 end
 
@@ -111,7 +111,7 @@ begin
     button = BTN_DPAD_DOWN
     prog = raspiremote
     config = DOWN_KEY
-    repeat = 0
+    repeat = 100
     delay = 1
 end
 
@@ -120,7 +120,7 @@ begin
     button = BTN_DPAD_UP
     prog = raspiremote
     config = UP_KEY
-    repeat = 0
+    repeat = 100
     delay = 1
 end
 
