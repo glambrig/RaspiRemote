@@ -22,7 +22,7 @@ if [ "$1" = "-nopi" ] || [ "$2" = "-nopi" ] || [ "$3" = "-nopi" ]; then
 		sudo chmod 644 wiringpi_3.14_amd64.deb
 		sudo apt install ./wiringpi_3.14_amd64.deb
 		cd ..
-		mv WiringPi inc
+		mv WiringPi inc/WiringPi
 	else
 		echo "WiringPi already installed, skipping..."
 	fi
@@ -36,7 +36,7 @@ else
 		sudo chmod 644 wiringpi_3.14_arm64.deb
 		sudo apt install ./wiringpi_3.14_arm64.deb
 		cd ..
-		mv WiringPi inc
+		mv WiringPi inc/WiringPi
 	else
 		echo "WiringPi already installed, skipping..."
 	fi

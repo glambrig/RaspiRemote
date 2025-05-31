@@ -54,6 +54,8 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 		lastKeyTime = currentTime.tv_usec;
 		return (key);
 	}
+	std::cout << "lastkeytime = " << lastKeyTime << '\n';
+	std::cout << "currentTime.tv_usec = " << currentTime.tv_usec << '\n';
 	std::cout << "time between is: " << currentTime.tv_usec - lastKeyTime << '\n';
 
 	if (key == lastKey &&
