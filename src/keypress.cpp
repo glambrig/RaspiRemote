@@ -45,7 +45,7 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 
 	gettimeofday(&currentTime, NULL);
 
-	if (currentTime.tv_sec - lastKeyTime >= 1)
+	if (currentTime.tv_usec - lastKeyTime >= 1000000)
 	{
 		lastKey = -1;
 		beforeLastKey = -1;
@@ -55,7 +55,7 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 			lastKeyTime == -1)
 	{
 		lastKey = key;
-		lastKeyTime = currentTime.tv_sec;
+		lastKeyTime = currentTime.tv_usec;
 		return (key);
 	}
 
@@ -65,7 +65,8 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 	{
 		beforeLastKey = lastKey;
 		lastKey = key;
-		lastKeyTime = currentTime.tv_sec;
+		lastKeyTime = currentTime.tv_usec;
+		libUinputWrapper::press_key(uinput_fd, KEY_BACKSPACE, 0);
 		switch (key)
 		{
 			case (KEY_0):
@@ -100,7 +101,7 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 		beforeBeforeLastKey = beforeLastKey;
 		beforeLastKey = lastKey;
 		lastKey = key;
-		lastKeyTime = currentTime.tv_sec;
+		lastKeyTime = currentTime.tv_usec;
 		libUinputWrapper::press_key(uinput_fd, KEY_BACKSPACE, 0);
 		switch (key)
 		{
