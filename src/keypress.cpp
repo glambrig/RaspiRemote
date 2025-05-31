@@ -35,9 +35,10 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 	static int32_t			lastKey = -1;
 	static int32_t			beforeLastKey = -1;
 	static int32_t			beforeBeforeLastKey = -1;
+	static struct timeval	currentTime;
 	static time_t			lastKeyTime_sec = -1;
 	static time_t			lastKeyTime_usec = -1;
-	static struct timeval	currentTime;
+	time_t					difference;
 
 	if (guiPtr->isCursorOnSearchBar() == false)
 	{
@@ -46,9 +47,8 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 
 	gettimeofday(&currentTime, NULL);
 
-	time_t difference = currentTime.tv_sec - lastKeyTime_sec;
+	difference = currentTime.tv_sec - lastKeyTime_sec;
 	difference += (currentTime.tv_usec - lastKeyTime_usec) / 1000000.0;
-	std::cout << "difference: " << difference << '\n';
 	if (difference >= 1.0)
 	{
 		lastKey = -1;
@@ -110,7 +110,10 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 		lastKey = key;
 		lastKeyTime_sec = currentTime.tv_sec;
 		lastKeyTime_usec = currentTime.tv_usec;
-		libUinputWrapper::press_key(uinput_fd, KEY_BACKSPACE, 0);
+		if (key != KEY_BACKSPACE)
+		{
+			libUinputWrapper::press_key(uinput_fd, KEY_BACKSPACE, 0);
+		}
 		switch (key)
 		{
 			case (KEY_0):
