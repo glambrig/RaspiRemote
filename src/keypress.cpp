@@ -148,7 +148,7 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 		switch (key)
 		{
 			case (KEY_0):
-				return (KEY_ENTER);
+				return (-1);
 			case (KEY_1):
 				return (KEY_C);
 			case (KEY_2):
@@ -174,7 +174,7 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 	return (-1);
 }
 
-void	Keypress::checkForNumberKey(std::string &receivedCodeStr)
+void	Keypress::checkForNumberKeyAndPress(std::string &receivedCodeStr)
 {
 	bool error = false;
 
@@ -304,7 +304,7 @@ void	Keypress::checkForNumberKey(std::string &receivedCodeStr)
 	}
 }
 
-bool	Keypress::checkForArrowKey(std::string & receivedCodeStr)
+bool	Keypress::checkForArrowKeyAndPress(std::string & receivedCodeStr)
 {
 	if (receivedCodeStr == "UP_KEY")
 	{
@@ -338,7 +338,14 @@ void	Keypress::decodeKeyPress(char *receivedCode)
 {
 	std::string receivedCodeStr(receivedCode);
 
-	if (checkForArrowKey(receivedCodeStr))
+	if (receivedCodeStr == "KEY_ENTER")
+	{
+		libUinputWrapper::press_key(uinput_fd, KEY_ENTER, 0);
+		return ;
+	}
+	if (checkForArrowKeyAndPress(receivedCodeStr))
+	{
 		return ;		
-	checkForNumberKey(receivedCodeStr);
+	}
+	checkForNumberKeyAndPress(receivedCodeStr);
 }

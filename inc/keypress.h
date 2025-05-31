@@ -19,8 +19,8 @@ public:
 	void	listenForKeyPress(struct lirc_config **lirc_config);
 	void	decodeKeyPress(char *receivedCodeStr);
 	int		discernCorrectKey(u_int16_t key);
-	void	checkForNumberKey(std::string &receivedCodeStr);
-	bool	checkForArrowKey(std::string &receivedCode);
+	void	checkForNumberKeyAndPress(std::string &receivedCodeStr);
+	bool	checkForArrowKeyAndPress(std::string &receivedCode);
 
 	void	setGuiPtr(class gui *gui)
 	{
