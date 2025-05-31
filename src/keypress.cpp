@@ -54,9 +54,9 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 		lastKeyTime = currentTime.tv_usec;
 		return (key);
 	}
-	std::cout << "lastkeytime = " << lastKeyTime << '\n';
-	std::cout << "currentTime.tv_usec = " << currentTime.tv_usec << '\n';
-	std::cout << "time between is: " << currentTime.tv_usec - lastKeyTime << '\n';
+	// std::cout << "lastkeytime = " << lastKeyTime << '\n';
+	// std::cout << "currentTime.tv_usec = " << currentTime.tv_usec << '\n';
+	// std::cout << "time between is: " << currentTime.tv_usec - lastKeyTime << '\n';
 
 	if (key == lastKey &&
 				(beforeLastKey == -1 ||
@@ -100,6 +100,7 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 		beforeLastKey = lastKey;
 		lastKey = key;
 		lastKeyTime = currentTime.tv_usec;
+		libUinputWrapper::press_key(uinput_fd, KEY_BACKSPACE, 0);
 		switch (key)
 		{
 			case (KEY_0):
@@ -130,6 +131,7 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 				key == beforeLastKey &&
 					key == beforeBeforeLastKey)
 	{
+		libUinputWrapper::press_key(uinput_fd, KEY_BACKSPACE, 0);
 		switch (key)
 		{
 			case (KEY_0):
