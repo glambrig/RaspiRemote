@@ -8,12 +8,9 @@
 #define MOUSE_X_MOVE_OFFSET 15
 #define MOUSE_Y_MOVE_OFFSET 10
 
-class gui;
-
 class Keypress
 {
 private:
-	gui		*guiPtr;
 	int		uinput_fd;
 public:
 	void	listenForKeyPress(struct lirc_config **lirc_config);
@@ -22,10 +19,6 @@ public:
 	void	checkForNumberKeyAndPress(std::string &receivedCodeStr);
 	bool	checkForArrowKeyAndPress(std::string &receivedCode);
 
-	void	setGuiPtr(class gui *gui)
-	{
-		guiPtr = gui;
-	}
 	void	setUinputFd(int &uinp_fd)
 	{
 		uinput_fd = uinp_fd;

@@ -8,7 +8,6 @@ NAME = raspiremote
 
 SRC = src/infared.cpp \
 		src/keypress.cpp \
-		src/gui.cpp \
 		src/main.cpp
 
 OBJ = $(SRC:.cpp=.o)

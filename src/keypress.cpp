@@ -1,5 +1,4 @@
 #include "../inc/keypress.h"
-#include "../inc/gui.h"
 #include "../inc/main.h"
 
 void	Keypress::listenForKeyPress(struct lirc_config **lirc_config)
@@ -39,11 +38,6 @@ int	Keypress::discernCorrectKey(u_int16_t key)
 	static time_t			lastKeyTime_sec = -1;
 	static time_t			lastKeyTime_usec = -1;
 	time_t					difference;
-
-	if (guiPtr->isCursorOnSearchBar() == false)
-	{
-		return (-1);
-	}
 
 	gettimeofday(&currentTime, NULL);
 

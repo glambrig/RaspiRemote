@@ -1,6 +1,6 @@
 #include "../inc/infared.h"
 #include "../inc/keypress.h"
-#include "../inc/gui.h"
+#include "../inc/main.h"
 #include <signal.h>
 
 int			uinput_fd;
@@ -17,12 +17,6 @@ static void	setupSigHandling()
 
 	sa.sa_handler = &sighandler;
 	sigaction(SIGINT, &sa, NULL);
-}
-
-static void	setupPointers(Keypress &kp, gui &gui)
-{
-	gui.setKeypressPtr(&kp);
-	kp.setGuiPtr(&gui);
 }
 
 void	cleanExit(const char *exitMessage, int status)
@@ -43,9 +37,7 @@ void	cleanExit(const char *exitMessage, int status)
 int	main(void)
 {
 	Keypress	kp;
-	gui			gui;
 
-	setupPointers(kp, gui);
 	setupSigHandling();
 	Infared::setup();
 
