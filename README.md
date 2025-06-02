@@ -1,7 +1,5 @@
 I like watching movies and youtube on my laptop, since I have an adblocker. The screen is kind of small though, so I usually hook it up to the TV via HDMI. The problem with this approach is that whenever I want to pause or search something, I have to get up off the couch (the HDMI cable is too short). This problem could arguably be solved by just getting a longer cable, but that would be too easy, and someone would probably trip over it. So I came up with a solution: what if I could do everything my laptop does but on my raspberry pi, and interact with it from my couch via remote control? That's what I've attempted to do in this project.
 
-This program provides a GUI which makes selecting services easy. Simply use the remote to choose the service you want, click, and it'll take you there. Once on the page, use the up/down/left/right arrows to navigate the videos, and the center button to click. If you click the search bar, you'll need to use the number keys, as described below.
-
 To make this work, you'll need:
 - A raspberry pi
 - IR remote + receiver (included in Elegoo's Arduino UNO R3 starter kit)
@@ -34,6 +32,3 @@ This had me stumped for days, so you're welcome.
 `-nopi`: allows you to compile if you're not running `raspiremote` on a raspberry pi (you won't be able to run it though)
 
 - Launch the program with `./raspiremote`
-
-### How to change the websites the GUI redirects to
-To do
