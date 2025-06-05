@@ -1,5 +1,86 @@
 begin
-    remote = elegoo
+    remote = completeRaspiRemote
+    button = KEY_POWER
+    prog = raspiremote
+    config = KEY_POWER
+    repeat = 0
+    delay = 1
+end
+
+begin
+    remote = completeRaspiRemote
+    button = KEY_VOLUMEUP
+    prog = raspiremote
+    config = KEY_VOLUMEUP
+    repeat = 0
+    delay = 1
+end
+
+begin
+    remote = completeRaspiRemote
+    button = KEY_STOP
+    prog = raspiremote
+    config = KEY_STOP
+    repeat = 0
+    delay = 1
+end
+
+begin
+    remote = completeRaspiRemote
+    button = BTN_DPAD_LEFT
+    prog = raspiremote
+    config = BTN_DPAD_LEFT
+    repeat = 1
+    delay = 1
+end
+
+begin
+    remote = completeRaspiRemote
+    button = BTN_MOUSE
+    prog = raspiremote
+    config = BTN_MOUSE
+    repeat = 0
+    delay = 1
+end
+
+begin
+    remote = completeRaspiRemote
+    button = BTN_DPAD_RIGHT
+    prog = raspiremote
+    config = BTN_DPAD_RIGHT
+    repeat = 1
+    delay = 1
+end
+
+begin
+    remote = completeRaspiRemote
+    button = BTN_DPAD_DOWN
+    prog = raspiremote
+    config = BTN_DPAD_DOWN
+    repeat = 1
+    delay = 1
+end
+
+begin
+    remote = completeRaspiRemote
+    button = KEY_VOLUMEDOWN
+    prog = raspiremote
+    config = KEY_VOLUMEDOWN
+    repeat = 0
+    delay = 1
+end
+
+begin
+    remote = completeRaspiRemote
+    button = BTN_DPAD_UP
+    prog = raspiremote
+    config = BTN_DPAD_UP
+    repeat = 1
+    delay = 1
+end
+
+begin
+    remote = completeRaspiRemote
     button = KEY_0
     prog = raspiremote
     config = KEY_0
@@ -8,7 +89,25 @@ begin
 end
 
 begin
-    remote = elegoo
+    remote = completeRaspiRemote
+    button = KEY_EQUAL
+    prog = raspiremote
+    config = KEY_EQUAL
+    repeat = 0
+    delay = 1
+end
+
+begin
+    remote = completeRaspiRemote
+    button = KEY_RESTART
+    prog = raspiremote
+    config = KEY_RESTART
+    repeat = 0
+    delay = 1
+end
+
+begin
+    remote = completeRaspiRemote
     button = KEY_1
     prog = raspiremote
     config = KEY_1
@@ -17,7 +116,7 @@ begin
 end
 
 begin
-    remote = elegoo
+    remote = completeRaspiRemote
     button = KEY_2
     prog = raspiremote
     config = KEY_2
@@ -26,7 +125,7 @@ begin
 end
 
 begin
-    remote = elegoo
+    remote = completeRaspiRemote
     button = KEY_3
     prog = raspiremote
     config = KEY_3
@@ -35,7 +134,7 @@ begin
 end
 
 begin
-    remote = elegoo
+    remote = completeRaspiRemote
     button = KEY_4
     prog = raspiremote
     config = KEY_4
@@ -44,7 +143,7 @@ begin
 end
 
 begin
-    remote = elegoo
+    remote = completeRaspiRemote
     button = KEY_5
     prog = raspiremote
     config = KEY_5
@@ -53,7 +152,7 @@ begin
 end
 
 begin
-    remote = elegoo
+    remote = completeRaspiRemote
     button = KEY_6
     prog = raspiremote
     config = KEY_6
@@ -62,7 +161,7 @@ begin
 end
 
 begin
-    remote = elegoo
+    remote = completeRaspiRemote
     button = KEY_7
     prog = raspiremote
     config = KEY_7
@@ -71,7 +170,7 @@ begin
 end
 
 begin
-    remote = elegoo
+    remote = completeRaspiRemote
     button = KEY_8
     prog = raspiremote
     config = KEY_8
@@ -80,56 +179,10 @@ begin
 end
 
 begin
-    remote = elegoo
+    remote = completeRaspiRemote
     button = KEY_9
     prog = raspiremote
     config = KEY_9
     repeat = 0
     delay = 1
 end
-
-begin
-    remote = elegoo
-    button = BTN_DPAD_LEFT
-    prog = raspiremote
-    config = LEFT_KEY
-    repeat = 1
-    delay = 1
-end
-
-begin
-    remote = elegoo
-    button = BTN_DPAD_RIGHT
-    prog = raspiremote
-    config = RIGHT_KEY
-    repeat = 1
-    delay = 1
-end
-
-begin
-    remote = elegoo
-    button = BTN_DPAD_DOWN
-    prog = raspiremote
-    config = DOWN_KEY
-    repeat = 1
-    delay = 1
-end
-
-begin
-    remote = elegoo
-    button = BTN_DPAD_UP
-    prog = raspiremote
-    config = UP_KEY
-    repeat = 1
-    delay = 1
-end
-
-begin
-    remote = elegoo
-    button = BTN_MOUSE
-    prog = raspiremote
-    config = CLICK_KEY
-    repeat = 0
-    delay = 1
-end
-
