@@ -45,14 +45,13 @@ fi
 echo "WiringPi installed successfully."
 
 if [ "$1" != "-nocopy" ] && [ "$2" != "-nocopy" ] && [ "$3" != "-nocopy" ]; then
+	echo "Copying LIRC config files into /etc/lirc/"
 	sudo cp conf/lircd.conf /etc/lirc/lircd.conf
 	sudo cp conf/lircrc /etc/lirc/lircrc
 	sudo cp conf/lirc_options.conf /etc/lirc/lirc_options.conf
-	# rm lircd.conf lircrc lirc_options.conf
 fi
 
 echo "Changing permissions for /dev/uinput ..."
-
 sudo modprobe uinput
 sudo chmod 777 /dev/uinput
 

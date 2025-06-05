@@ -29,7 +29,7 @@ begin
     remote = completeRaspiRemote
     button = BTN_DPAD_LEFT
     prog = raspiremote
-    config = BTN_DPAD_LEFT
+    config = LEFT_KEY
     repeat = 1
     delay = 1
 end
@@ -38,7 +38,7 @@ begin
     remote = completeRaspiRemote
     button = BTN_MOUSE
     prog = raspiremote
-    config = BTN_MOUSE
+    config = CLICK_KEY
     repeat = 0
     delay = 1
 end
@@ -47,7 +47,7 @@ begin
     remote = completeRaspiRemote
     button = BTN_DPAD_RIGHT
     prog = raspiremote
-    config = BTN_DPAD_RIGHT
+    config = RIGHT_KEY
     repeat = 1
     delay = 1
 end
@@ -56,7 +56,7 @@ begin
     remote = completeRaspiRemote
     button = BTN_DPAD_DOWN
     prog = raspiremote
-    config = BTN_DPAD_DOWN
+    config = DOWN_KEY
     repeat = 1
     delay = 1
 end
@@ -74,7 +74,7 @@ begin
     remote = completeRaspiRemote
     button = BTN_DPAD_UP
     prog = raspiremote
-    config = BTN_DPAD_UP
+    config = UP_KEY
     repeat = 1
     delay = 1
 end
@@ -92,7 +92,7 @@ begin
     remote = completeRaspiRemote
     button = KEY_EQUAL
     prog = raspiremote
-    config = KEY_EQUAL
+    config = KEY_ENTER
     repeat = 0
     delay = 1
 end
