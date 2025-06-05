@@ -7,14 +7,14 @@ if [ "$1" != "-noapt" ] && [ "$2" != "-noapt" ] && [ "$3" != "-noapt" ]; then
 fi
 
 if [ ! -d "inc/LibUinputWrapper" ]; then
-	echo "LibUinputWrapper not found, installing..."
+	echo "-------------------LibUinputWrapper not found, installing...-------------------"
 	git clone git@github.com:glambrig/LibUinputWrapper.git
 	mv LibUinputWrapper inc
 	make -C inc/LibUinputWrapper
 fi
 
 if [ "$1" = "-nopi" ] || [ "$2" = "-nopi" ] || [ "$3" = "-nopi" ]; then
-	if [ ! -d "inc/WiringPi" ] && ! gpio -v >/dev/null 2>&1; then
+	if [ ! -d "inc/WiringPi" ] || ! gpio -v >/dev/null 2>&1; then
 		git clone git@github.com:WiringPi/WiringPi.git
 		cd WiringPi
 		./build debian
@@ -24,11 +24,11 @@ if [ "$1" = "-nopi" ] || [ "$2" = "-nopi" ] || [ "$3" = "-nopi" ]; then
 		cd ..
 		mv WiringPi inc/WiringPi
 	else
-		echo "WiringPi already installed, skipping..."
+		echo "-------------------WiringPi already installed, skipping...-------------------"
 	fi
 else
 	if [ ! -d "inc/WiringPi" ] && ! command -v gpio &> /dev/null ; then
-		echo "WiringPi not found, installing..."
+		echo "-------------------WiringPi not found, installing...-------------------"
 		git clone git@github.com:WiringPi/WiringPi.git || exit 1
 		cd WiringPi
 		./build debian || exit 1
@@ -42,7 +42,7 @@ else
 	fi
 fi
 
-echo "WiringPi installed successfully."
+echo "-------------------WiringPi installed successfully.-------------------"
 
 if [ "$1" != "-nocopy" ] && [ "$2" != "-nocopy" ] && [ "$3" != "-nocopy" ]; then
 	echo "Copying LIRC config files into /etc/lirc/"
@@ -51,14 +51,8 @@ if [ "$1" != "-nocopy" ] && [ "$2" != "-nocopy" ] && [ "$3" != "-nocopy" ]; then
 	sudo cp conf/lirc_options.conf /etc/lirc/lirc_options.conf
 fi
 
-echo "Changing permissions for /dev/uinput ..."
+echo "-------------------Changing permissions for /dev/uinput ...-------------------"
 sudo modprobe uinput
 sudo chmod 777 /dev/uinput
-
-# If -bin option provided, make program executable from anywhere
-# cwd=$(pwd)
-# if [ "$1" = "-bin" ] || [ "$2" = "-bin" ] || [ "$3" = "-bin" ]; then
-# 	export PATH=$PATH:$cwd
-# fi
 
 make -j4 || exit 1
