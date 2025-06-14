@@ -300,30 +300,56 @@ void	Keypress::checkForNumberKeyAndPress(std::string &receivedCodeStr)
 
 bool	Keypress::checkForArrowKeyAndPress(std::string & receivedCodeStr)
 {
-	if (receivedCodeStr == "UP_KEY")
+	if (arrowKeyMovesMouse == true)
 	{
-		libUinputWrapper::move_mouse_from_cursor(uinput_fd, 0, -MOUSE_Y_MOVE_OFFSET);
-		return (true);
+		if (receivedCodeStr == "UP_KEY")
+		{
+			libUinputWrapper::move_mouse_from_cursor(uinput_fd, 0, -MOUSE_Y_MOVE_OFFSET);
+			return (true);
+		}
+		else if (receivedCodeStr == "DOWN_KEY")
+		{
+			libUinputWrapper::move_mouse_from_cursor(uinput_fd, 0, MOUSE_Y_MOVE_OFFSET);
+			return (true);
+		}
+		else if (receivedCodeStr == "RIGHT_KEY")
+		{
+			libUinputWrapper::move_mouse_from_cursor(uinput_fd, MOUSE_X_MOVE_OFFSET, 0);
+			return (true);
+		}
+		else if (receivedCodeStr == "LEFT_KEY")
+		{
+			libUinputWrapper::move_mouse_from_cursor(uinput_fd, -MOUSE_X_MOVE_OFFSET, 0);
+			return (true);
+		}
+		else if (receivedCodeStr == "CLICK_KEY")
+		{
+			libUinputWrapper::click(uinput_fd, LEFT_CLICK, 0);
+			return (true);
+		}
 	}
-	else if (receivedCodeStr == "DOWN_KEY")
+	else
 	{
-		libUinputWrapper::move_mouse_from_cursor(uinput_fd, 0, MOUSE_Y_MOVE_OFFSET);
-		return (true);
-	}
-	else if (receivedCodeStr == "RIGHT_KEY")
-	{
-		libUinputWrapper::move_mouse_from_cursor(uinput_fd, MOUSE_X_MOVE_OFFSET, 0);
-		return (true);
-	}
-	else if (receivedCodeStr == "LEFT_KEY")
-	{
-		libUinputWrapper::move_mouse_from_cursor(uinput_fd, -MOUSE_X_MOVE_OFFSET, 0);
-		return (true);
-	}
-	else if (receivedCodeStr == "CLICK_KEY")
-	{
-		libUinputWrapper::click(uinput_fd, LEFT_CLICK, 0);
-		return (true);
+		if (receivedCodeStr == "UP_KEY")
+		{
+			libUinputWrapper::press_key(uinput_fd, KEY_UP, 500);
+			return (true);
+		}
+		else if (receivedCodeStr == "DOWN_KEY")
+		{
+			libUinputWrapper::press_key(uinput_fd, KEY_DOWN, 500);
+			return (true);
+		}
+		else if (receivedCodeStr == "RIGHT_KEY")
+		{
+			libUinputWrapper::press_key(uinput_fd, KEY_RIGHT, 500);
+			return (true);
+		}
+		else if (receivedCodeStr == "LEFT_KEY")
+		{
+			libUinputWrapper::press_key(uinput_fd, KEY_LEFT, 500);
+			return (true);
+		}
 	}
 	return (false);
 }
@@ -335,6 +361,11 @@ void	Keypress::decodeKeyPress(char *receivedCode)
 	if (receivedCodeStr == "KEY_ENTER")
 	{
 		libUinputWrapper::press_key(uinput_fd, KEY_ENTER, 0);
+		return ;
+	}
+	if (receivedCodeStr == "KEY_RESTART")
+	{
+		arrowKeyMovesMouse = !arrowKeyMovesMouse;
 		return ;
 	}
 	if (checkForArrowKeyAndPress(receivedCodeStr))
